@@ -3,10 +3,10 @@
 */
 define('main', [
 
-	'jquery', 'app', 
+	'jquery', 'underscore', 'app', 'moment', 'datepicker-lang', 'timepicker',
 	'text!form-new-resa'
 
-], function($, app, template){
+], function($, _, app, moment, datepicker, timepicker, formTemplate){
 
 	'use strict';
 
@@ -41,7 +41,17 @@ define('main', [
 
 		formView: function(){
 
-			this.container.html(template);
+			// Retrieve the template // 
+			var tmp = _.template(formTemplate, {
+				lang    : app.lang,
+				moment  : moment()
+			});
+
+			this.container.html(tmp);
+
+			$('.datepicker').datepicker({ format: 'dd/mm/yyyy',	weekStart: 1, autoclose: true, language: 'fr', todayHighlight: true });
+			$('.timepicker').timepicker({defaultTime: false, showMeridian: false, showInputs: false, showWidgetOnAddonClick: false});
+
 		}
 	}
 

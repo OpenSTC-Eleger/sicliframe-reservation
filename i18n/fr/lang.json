@@ -1,3 +1,44 @@
 {
-	"title"		: "Nouvelle réservation"
+	"appTitle"		    : "Demande de réservation",
+
+
+	
+	"anIndividual"      : "un particulier",
+	"anAssociation"     : "une association",
+
+	"dateFrom"          : "Du",
+	"dateTo"            : "au",
+
+
+	"label" : {
+		"youAre"            : "Vous êtes",
+		"bookingName"       : "Nom de l'événement",
+		"nameFirstname"     : "Prénom, Nom",
+		"email"             : "Email",
+		"phone"             : "Téléphone",
+		"wantedPlace"       : "Salle souhaitée"
+	},
+
+
+	"infoMessage" : {
+		"validSendBooking"  : "Votre demande a bien été prise en compte.",
+		"sendingInProgress" : "Envoi en cours..."
+	},
+
+
+
+	"placeholder" : {
+		"bookingName"         : "Ex: Concours de belotte, Mariage...",
+		"nameFirstname"       : "Ex: Julie Gautier",
+		"email"               : "Ex: julie.gautier@mail.fr",
+		"selectAnAssociation" : "Sélectionnez votre association",
+		"selectAPlace"        : "Sélectionnez une salle",
+		"checkDate"           : "__/__/____",
+		"checkHour"           : "__:__"
+	},
+
+
+	"action" : {
+		"send"          : "Envoyer"
+	}
 }
