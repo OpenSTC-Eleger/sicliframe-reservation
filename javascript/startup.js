@@ -14,15 +14,19 @@ requirejs.config({
 		'jquery'             : '//code.jquery.com/jquery-2.0.3.min',
 		'bootstrap'          : '//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min',
 		'underscore'         : '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min',
+		'underscore.string'  : '//cdnjs.cloudflare.com/ajax/libs/underscore.string/2.3.3/underscore.string.min',
 		'moment'             : '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.4.0/moment.min',
 		
-		'select2'		     : '//cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2.min',
+		'select2'            : '//cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2.min',
+		'select2-lang'       : '//cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2_locale_fr.min',
 		'datepicker'         : '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min',
 		'datepicker-lang'    : '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/locales/bootstrap-datepicker.fr.min',
-		'timepicker'	     : 'libs/timepicker-0.2.6',
+		'timepicker'         : 'libs/timepicker-0.2.6',
 
 		'app'                : 'app',
 		'main'               : 'main',
+		'helper'             : 'helper',
+		'advanceSelectBox'   : 'advanceSelectBox',
 
 
 		/* ########
@@ -41,6 +45,10 @@ requirejs.config({
 		},
 		'select2': {
 			deps   : ['jquery'],
+			exports: 'select2'
+		},
+		'select2-lang': {
+			deps   : ['select2'],
 			exports: 'select2'
 		},
 		'datepicker': {

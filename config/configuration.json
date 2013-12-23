@@ -1,3 +1,4 @@
 {
-	"token-api"   : "8f7f8d7f1c21eb8d90651dbe6266159a"
+	"server_api_url" : "http://localhost/api/",
+	"token_api"      : "8f7f8d7f1c21eb8d90651dbe6266159a"
 }

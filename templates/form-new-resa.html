@@ -4,7 +4,10 @@
 
 
 <form class="form-horizontal" role="form">
-	
+
+	<fieldset>
+
+	<!-- <legend>À propos de vous</legend>-->
 
 	<!-- Claimer Type -->
 	<div class="form-group">
@@ -22,10 +25,10 @@
 
 	<!-- Select Association -->
 	<div class="form-group">
-		<label for="requestContact" class="control-label col-sm-2"><%= lang.anAssociation %> :</label>
+		<label for="claimerAssociation" class="control-label col-sm-2"><%= lang.anAssociation %> :</label>
 
-		<div class="col-sm-9">
-			<input id="requestContact" class="select2" data-placeholder="<%= lang.placeholder.selectAnAssociation %>" />
+		<div class="col-sm-10">
+			<input id="claimerAssociation" class="select2" data-placeholder="<%= lang.placeholder.selectAnAssociation %>" />
 		</div>
 	</div>
 
@@ -55,6 +58,8 @@
 		</div>
 	</div>
 
+	</fieldset>
+
 	
 
 	<fieldset>
@@ -81,10 +86,10 @@
 
 		<!-- Booking checkIn -->
 		<div class="form-group">
-			<label for="citizenName" class="col-sm-2 control-label"><%= lang.label.nameFirstname %> :</label>
+			<label for="citizenName" class="col-xs-12 col-sm-2 control-label"><%= lang.label.nameFirstname %> :</label>
 
 			<!-- Checkin Sate -->
-			<div class="col-xs-4 col-sm-4 col-md-3">
+			<div class="col-xs-5 col-sm-4 col-md-3">
 				<div class="input-group">
 					<input type="text" class="form-control datepicker" placeholder="<%= lang.placeholder.checkDate %>" value="<%= moment.format('DD/MM/YYYY') %>">
 					<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -92,7 +97,7 @@
 			</div>
 
 			<!-- CheckIn Hour -->
-			<div class="col-xs-3 col-sm-3 col-md-2">
+			<div class="col-xs-4 col-sm-3 col-md-2">
 				<div class="input-group">
 					<input type="text" class="form-control timepicker" placeholder="<%= lang.placeholder.checkHour %>" value="<%= moment.format('HH:00') %>">
 					<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
@@ -102,10 +107,10 @@
 
 		<!-- Booking checkOut -->
 		<div class="form-group">
-			<label for="citizenName" class="col-sm-2 control-label"><%= lang.label.nameFirstname %> :</label>
+			<label for="citizenName" class="col-xs-12 control-label"><%= lang.label.nameFirstname %> :</label>
 
 			<!-- Checkin Sate -->
-			<div class="col-xs-4 col-sm-4 col-md-3">
+			<div class="col-xs-5 col-sm-4 col-md-3">
 				<div class="input-group">
 					<input type="text" class="form-control datepicker" placeholder="<%= lang.placeholder.checkDate %>" value="<%= moment.format('DD/MM/YYYY') %>">
 					<span class="input-group-addon date"><i class="fa fa-calendar"></i></span>
@@ -113,7 +118,7 @@
 			</div>
 
 			<!-- CheckIn Hour -->
-			<div class="col-xs-3 col-sm-3 col-md-2">
+			<div class="col-xs-4 col-sm-3 col-md-2">
 				<div class="input-group">
 					<input type="text" class="form-control timepicker" placeholder="<%= lang.placeholder.checkHour %>" value="<%= moment.add('hours', 3).format('HH:00') %>">
 					<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>

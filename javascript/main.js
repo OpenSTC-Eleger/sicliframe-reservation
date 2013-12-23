@@ -3,22 +3,20 @@
 */
 define('main', [
 
-	'jquery', 'underscore', 'app', 'moment', 'datepicker-lang', 'timepicker',
-	'text!form-new-resa'
+	'jquery', 'app', 'helper'
 
-], function($, _, app, moment, datepicker, timepicker, formTemplate){
+], function($, app, Helper){
 
 	'use strict';
 
 	var main  = {
-
-		container  : $('#container'),
 
 
 		/** Application initialization
 		*/
 		init: function() {
 			var self = this;
+
 
 			// Retrieve configuration and lang files //
 			$.when($.getJSON(app.configPath), $.getJSON(app.langPath))
@@ -29,7 +27,11 @@ define('main', [
 				app.lang   = lang_data[0];
 
 
-				self.formView();
+				// Set the Ajax setup //
+				Helper.setAjaxSetUp(app.config.token_api);
+
+
+				app.formView();
 
 			})
 			.fail(function(e){
@@ -38,21 +40,6 @@ define('main', [
  
 		},
 
-
-		formView: function(){
-
-			// Retrieve the template // 
-			var tmp = _.template(formTemplate, {
-				lang    : app.lang,
-				moment  : moment()
-			});
-
-			this.container.html(tmp);
-
-			$('.datepicker').datepicker({ format: 'dd/mm/yyyy',	weekStart: 1, autoclose: true, language: 'fr', todayHighlight: true });
-			$('.timepicker').timepicker({defaultTime: false, showMeridian: false, showInputs: false, showWidgetOnAddonClick: false});
-
-		}
 	}
 
 	return main;
