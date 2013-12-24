@@ -2,10 +2,16 @@
 	"appTitle"		    : "Demande de réservation",
 
 
+	"title" : {
+		"aboutYou"       : "À propos de vous",
+		"aboutBooking"   : "Information sur votre réservation",
+		"summaryBooking" : "Résumé de votre réservation"
+	},
+
+
 
 	"anIndividual"      : "un particulier",
 	"anAssociation"     : "une association",
-
 	"dateFrom"          : "Du",
 	"dateTo"            : "au",
 
@@ -13,10 +19,12 @@
 	"label" : {
 		"youAre"            : "Vous êtes",
 		"bookingName"       : "Nom de l'événement",
-		"nameFirstname"     : "Prénom, Nom",
+		"nameFirstname"     : "Nom",
 		"email"             : "Email",
 		"phone"             : "Téléphone",
-		"wantedPlace"       : "Salle souhaitée"
+		"wantedPlace"       : "Salle souhaitée",
+		"from"              : "Du",
+		"to"                : "Au"
 	},
 
 
@@ -34,11 +42,14 @@
 		"selectAnAssociation" : "Sélectionnez votre association",
 		"selectAPlace"        : "Sélectionnez une salle",
 		"checkDate"           : "__/__/____",
-		"checkHour"           : "__:__"
+		"checkHour"           : "__:__",
+		"phone"               : "__ __ __ __ __"
 	},
 
 
 	"action" : {
-		"send"          : "Envoyer"
+		"send"          : "Envoyer",
+		"next"          : "Suivant",
+		"previous"      : "Précédent"
 	}
 }

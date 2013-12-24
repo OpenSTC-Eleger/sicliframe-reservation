@@ -1,141 +1,199 @@
-<div class="page-header">
-	<h1 class="text-primary"><%= lang.appTitle %></h1>
-</div>
+<h1 class="text-primary"><%= lang.appTitle %></h1>
 
 
-<form class="form-horizontal" role="form">
+<!-- Panel -->
+<div class="panel panel-default">
+	<div class="panel-body">
 
-	<fieldset>
-
-	<!-- <legend>À propos de vous</legend>-->
-
-	<!-- Claimer Type -->
-	<div class="form-group">
-		<label class="col-sm-2 control-label"><%= lang.label.youAre %> :</label>
-		<div class="col-sm-10">
-			<label class="radio-inline">
-				<input type="radio" name="claimerType" id="inlineCheckbox1" value="individual" checked><%= lang.anIndividual %>
-			</label>
-			<label class="radio-inline">
-				<input type="radio" name="claimerType" id="inlineCheckbox2" value="association"><%= lang.anAssociation %>
-			</label>
-		</div>
-	</div>
-
-
-	<!-- Select Association -->
-	<div class="form-group">
-		<label for="claimerAssociation" class="control-label col-sm-2"><%= lang.anAssociation %> :</label>
-
-		<div class="col-sm-10">
-			<input id="claimerAssociation" class="select2" data-placeholder="<%= lang.placeholder.selectAnAssociation %>" />
-		</div>
-	</div>
+		<!-- Wizard -->
+		<ul id="wizard" class="nav nav-pills nav-justified">
+			<li class="active" data-toggle="tooltip" title="<%= lang.title.aboutYou %>">
+				<a href="#tab1" data-toggle="pill"><span class="sbadge pull-left">1</span><i class="fa fa-user fa-2x"></i></a>
+			</li>
+			<li class="sep"></li>
+			<li data-toggle="tooltip" title="<%= lang.title.aboutBooking %>">
+				<a href="#tab2" data-toggle="pill"><span class="sbadge pull-left">2</span><i class="fa fa-tag fa-2x"></i></a>
+			</li>
+			<li class="sep"></li>
+			<li data-toggle="tooltip" title="<%= lang.title.summaryBooking %>">
+				<a href="#tab3" data-toggle="pill"><span class="sbadge pull-left">3</span><i class="fa fa-check fa-2x"></i></a>
+			</li>
+		</ul>
 
 
+		<!-- Form -->
+		<form class="form-horizontal" role="form">
 
-	<!-- Citizen Name -->
-	<div class="form-group">
-		<label for="citizenName" class="col-sm-2 control-label"><%= lang.label.nameFirstname %> :</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" id="citizenName" placeholder="<%= lang.placeholder.nameFirstname %>" required>
-		</div>
-	</div>
+			<div class="tab-content">
 
-	<!-- Citizen Mail -->
-	<div class="form-group">
-		<label for="citizenMail" class="col-sm-2 control-label"><%= lang.label.email %> :</label>
-		<div class="col-sm-10">
-			<input type="email" class="form-control" id="citizenMail" placeholder="<%= lang.placeholder.email %>" required>
-		</div>
-	</div>
+				<!-- About the Claimer -->
+				<div class="tab-pane fade in active" id="tab1">
+					
+					<fieldset>
+					<legend><%= lang.title.aboutYou %></legend>
 
-	<!-- Citizen Phone -->
-	<div class="form-group">
-		<label for="citizenPhone" class="col-sm-2 control-label"><%= lang.label.phone %> :</label>
-		<div class="col-sm-10">
-			<input type="tel" class="form-control" id="citizenPhone" required>
-		</div>
-	</div>
+						<!-- Claimer Type -->
+						<div class="form-group">
+							<label class="col-sm-3 control-label"><%= lang.label.youAre %> :</label>
+							<div class="col-sm-9">
+								<label class="radio-inline">
+									<input type="radio" name="claimerType" id="isCitizen" value="individual"><%= lang.anIndividual %>
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="claimerType" id="isAssociation" value="association" checked><%= lang.anAssociation %>
+								</label>
+							</div>
+						</div>
 
-	</fieldset>
 
-	
+						<div class="isAssociation">
+						<!-- Select Association -->
+						<div class="form-group">
+							<div class="col-sm-9 col-sm-offset-3">
+								<input id="claimerAssociation" class="select2" data-placeholder="<%= lang.placeholder.selectAnAssociation %>" />
+							</div>
+						</div>
+						</div>
 
-	<fieldset>
-		<legend>Information sur votre réservation</legend>
-	
-		<!-- Booking Name -->
-		<div class="form-group">
-			<label for="bookingName" class="col-sm-2 control-label"><%= lang.label.bookingName %> :</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="bookingName" placeholder="<%= lang.placeholder.bookingName %>" required>
-			</div>
-		</div>
 
-		<!-- Select Place -->
-		<div class="form-group">
-			<label for="bookingPlace" class="control-label col-sm-2"><%= lang.label.wantedPlace %> :</label>
+						<div class="isCitizen hide-soft">
+						<!-- Citizen Name -->
+						<div class="form-group">
+							<label for="citizenName" class="control-label col-sm-3"><%= lang.label.nameFirstname %> :</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="citizenName" placeholder="<%= lang.placeholder.nameFirstname %>" required>
+							</div>
+						</div>
 
-			<div class="col-sm-9">
-				<input id="bookingPlace" class="select2" data-placeholder="<%= lang.placeholder.selectAPlace %>" />
-			</div>
-		</div>
+						<!-- Citizen Mail -->
+						<div class="form-group">
+							<label for="citizenMail" class="col-sm-3 control-label"><%= lang.label.email %> :</label>
+							<div class="col-sm-9">
+								<input type="email" class="form-control" id="citizenMail" placeholder="<%= lang.placeholder.email %>" required>
+							</div>
+						</div>
 
-		
+						<!-- Citizen Phone -->
+						<div class="form-group">
+							<label for="citizenPhone" class="col-sm-3 control-label"><%= lang.label.phone %> :</label>
+							<div class="col-sm-9">
+								<input type="tel" class="form-control" id="citizenPhone" placeholder="<%= lang.placeholder.phone %>" required>
+							</div>
+						</div>
+						</div>
 
-		<!-- Booking checkIn -->
-		<div class="form-group">
-			<label for="citizenName" class="col-xs-12 col-sm-2 control-label"><%= lang.label.nameFirstname %> :</label>
+					</fieldset>
 
-			<!-- Checkin Sate -->
-			<div class="col-xs-5 col-sm-4 col-md-3">
-				<div class="input-group">
-					<input type="text" class="form-control datepicker" placeholder="<%= lang.placeholder.checkDate %>" value="<%= moment.format('DD/MM/YYYY') %>">
-					<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 				</div>
-			</div>
 
-			<!-- CheckIn Hour -->
-			<div class="col-xs-4 col-sm-3 col-md-2">
-				<div class="input-group">
-					<input type="text" class="form-control timepicker" placeholder="<%= lang.placeholder.checkHour %>" value="<%= moment.format('HH:00') %>">
-					<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+
+
+				<!-- About The Booking -->
+				<div class="tab-pane fade" id="tab2">
+
+					<fieldset>
+					<legend><%= lang.title.aboutBooking %></legend>
+			
+						<!-- Booking Name -->
+						<div class="form-group">
+							<label for="bookingName" class="col-sm-3 control-label"><%= lang.label.bookingName %> :</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control input-lg" id="bookingName" placeholder="<%= lang.placeholder.bookingName %>" required>
+							</div>
+						</div>
+
+
+						<!-- Select Place -->
+						<div class="form-group">
+							<label for="bookingPlace" class="control-label col-sm-3"><%= lang.label.wantedPlace %> :</label>
+
+							<div class="col-sm-9">
+								<input id="bookingPlace" class="select2" data-placeholder="<%= lang.placeholder.selectAPlace %>" />
+							</div>
+						</div>
+					
+
+						<!-- Booking checkIn -->
+						<div class="form-group">
+							<label for="bookingStartDate" class="col-xs-12 col-sm-3 control-label"><%= lang.label.from %> :</label>
+
+							<!-- Checkin Sate -->
+							<div class="col-xs-5 col-sm-4 col-md-3">
+								<div class="input-group">
+									<input type="text" id="bookingStartDate" class="form-control datepicker" placeholder="<%= lang.placeholder.checkDate %>" value="<%= moment.format('DD/MM/YYYY') %>">
+									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+								</div>
+							</div>
+
+							<!-- CheckIn Hour -->
+							<div class="col-xs-4 col-sm-3 col-md-2">
+								<div class="input-group">
+									<input type="text" class="form-control timepicker" placeholder="<%= lang.placeholder.checkHour %>" value="<%= moment.format('HH:00') %>">
+									<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+								</div>
+							</div>
+						</div>
+
+
+						<!-- Booking checkOut -->
+						<div class="form-group">
+							<label for="bookingEndDate" class="col-xs-12 col-sm-3 control-label"><%= lang.label.to %> :</label>
+
+							<!-- Checkin Sate -->
+							<div class="col-xs-5 col-sm-4 col-md-3">
+								<div class="input-group">
+									<input type="text" id="bookingEndDate" class="form-control datepicker" placeholder="<%= lang.placeholder.checkDate %>" value="<%= moment.format('DD/MM/YYYY') %>">
+									<span class="input-group-addon date"><i class="fa fa-calendar"></i></span>
+								</div>
+							</div>
+
+							<!-- CheckIn Hour -->
+							<div class="col-xs-4 col-sm-3 col-md-2">
+								<div class="input-group">
+									<input type="text" class="form-control timepicker" placeholder="<%= lang.placeholder.checkHour %>" value="<%= moment.add('hours', 3).format('HH:00') %>">
+									<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+								</div>
+							</div>
+						</div>
+
+					</fieldset>
+
 				</div>
+
+
+
+				<!-- Summary of the booking -->
+				<div class="tab-pane fade" id="tab3">
+
+					<fieldset>
+					<legend><%= lang.title.summaryBooking %></legend>
+
+
+						<div class="form-group">
+							<div class="col-sm-offset-4 col-sm-4">
+								<button type="submit" class="btn btn-primary btn-block btn-lg" 
+										data-loading-text="<i class='fa fa-refresh fa-spin'></i>&nbsp; <%= lang.sendingInProgress %>">
+									<%= lang.action.send %>
+								</button>
+							</div>
+						</div>
+
+					</fieldset>
+
+			    </div>
+
+
 			</div>
-		</div>
 
-		<!-- Booking checkOut -->
-		<div class="form-group">
-			<label for="citizenName" class="col-xs-12 control-label"><%= lang.label.nameFirstname %> :</label>
+		</form>
 
-			<!-- Checkin Sate -->
-			<div class="col-xs-5 col-sm-4 col-md-3">
-				<div class="input-group">
-					<input type="text" class="form-control datepicker" placeholder="<%= lang.placeholder.checkDate %>" value="<%= moment.format('DD/MM/YYYY') %>">
-					<span class="input-group-addon date"><i class="fa fa-calendar"></i></span>
-				</div>
-			</div>
+	</div> <!-- Panel Body -->
 
-			<!-- CheckIn Hour -->
-			<div class="col-xs-4 col-sm-3 col-md-2">
-				<div class="input-group">
-					<input type="text" class="form-control timepicker" placeholder="<%= lang.placeholder.checkHour %>" value="<%= moment.add('hours', 3).format('HH:00') %>">
-					<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-				</div>
-			</div>
-		</div>
-
-	</fieldset>
-
-
-
-	<div class="form-group">
-		<div class="col-sm-offset-4 col-sm-4">
-			<button type="submit" class="btn btn-primary btn-block btn-lg" 
-					data-loading-text="<i class='fa fa-refresh fa-spin'></i>&nbsp; <%= lang.sendingInProgress %>">
-				<%= lang.action.send %>
-			</button>
-		</div>
+	<div class="panel-footer">
+		<ul class="pager">
+			<li class="previous"><a href="#"> <i class="fa fa-chevron-left"></i> <%= lang.action.previous %></a></li>
+			<li class="next disabled"><a href="#"><%= lang.action.next %>  <i class="fa fa-chevron-right"></i></a></li>
+		</ul>
 	</div>
-</form>
+
+</div> <!-- /Panel -->

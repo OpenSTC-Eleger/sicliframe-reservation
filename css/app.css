@@ -1,42 +1,108 @@
 /* Plugin SELECT2
 -------------------------------------------------- */
 .select2 {
-  width: 100%;
+	width: 100%;
 }
 .select2 .select2-choice {
-  height: 34px;
-  padding-top: 3px;
-  padding-left: 10px;
+	height: 34px;
+	padding-top: 3px;
+	padding-left: 10px;
 }
 .select2 .select2-search-choice a.select2-search-choice-close {
-  top: 3px;
-  left: 5px;
+	top: 3px;
+	left: 5px;
 }
 div.select2-container.tag-large ul.select2-choices {
-  background-image: none;
-  background-color: #FFF;
+	background-image: none;
+	background-color: #FFF;
 }
 div.select2-container.tag-large ul.select2-choices li.select2-search-choice {
-  width: 92%;
-  padding: 7px 2px 7px 22px;
-  background-color: #eeeeee;
-  background-image: none;
-  border-radius: 0;
-  margin-left: 5%;
+	width: 92%;
+	padding: 7px 2px 7px 22px;
+	background-color: #eeeeee;
+	background-image: none;
+	border-radius: 0;
+	margin-left: 5%;
 }
 div.select2-container.tag-large ul.select2-choices li.select2-search-choice:first-child {
-  margin-top: 5px;
+	margin-top: 5px;
 }
 div.select2-container.tag-large ul.select2-choices li.select2-search-choice-focus {
-  background-color: #d9edf7;
-  font-weight: bolder;
+	background-color: #d9edf7;
+	font-weight: bolder;
 }
 div.select2-container.tag-large ul.select2-choices li.select2-search-choice a.select2-search-choice-close {
-  top: 7px;
-  left: 5px;
+	top: 7px;
+	left: 5px;
 }
 .input-group .select2-container .select2-choice {
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
-  border-left: 0;
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+	border-left: 0;
+}
+
+	
+
+/* Wizard
+-------------------------------------------------- */
+@media (min-width: 768px){
+
+	#wizard li.sep:before {
+		border-top: 3px solid #55606e;
+		content: "";
+		display: block;
+		font-size: 0;
+		overflow: hidden;
+		position: relative;
+		bottom: 7px;
+		width: 100%;
+		z-index: 1;
+	}
+}
+
+#wizard{
+	padding: 10px;
+	margin-bottom: 15px;
+}
+
+#wizard li:not(.active) a{
+	background-color: #f5f5f5;
+}
+
+#wizard li.success a{
+	background-color: #5cb85c;
+	color: white;
+}
+#wizard li.error a{
+	background-color: #d9534f;
+	color: white;
+}
+
+
+#wizard li:not(.active) a .sbadge{
+	border-right: thin solid #428bca;
+}
+#wizard li.success a .sbadge{
+	border-right: thin solid white;
+}
+.sbadge{
+	padding: 4px 8px 4px 0;
+	border-right: thin solid white;
+}
+
+
+
+/* Panel Footer
+-------------------------------------------------- */
+.panel-footer .pager{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+
+
+/* Utilitie
+-------------------------------------------------- */
+.hide-soft{
+	display: none;
 }

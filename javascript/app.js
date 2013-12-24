@@ -4,10 +4,10 @@
 define('app', [
 
 	// Load our app module and pass it to our definition function
-	'jquery', 'underscore', 'moment', 'datepicker-lang', 'timepicker', 'advanceSelectBox',
+	'jquery', 'bootstrap', 'underscore', 'moment', 'datepicker-lang', 'timepicker', 'advanceSelectBox', 'jquery.maskedinput',
 	'text!form-new-resa'
 
-], function($, _, moment, datepicker, timepicker, advanceSelectBox, formTemplate){
+], function($, bs, _, moment, datepicker, timepicker, advanceSelectBox, mask, formTemplate){
 
 	'use strict';
 
@@ -31,6 +31,7 @@ define('app', [
 		/** View Render
 		*/
 		formView: function(){
+			var self = this;
 
 			// Retrieve the template // 
 			var tmp = _.template(formTemplate, {
@@ -45,12 +46,8 @@ define('app', [
 			app.selectListClaimerAssociation.render();
 
 
-			var searchParam = { field : 'type_id.code', operator : 'ilike', value : 'PART' };
+			var searchParam = { field : 'type_id.code', operator : 'ilike', value : 'ASSO' };
 			app.selectListClaimerAssociation.setSearchParam(searchParam , true);
-
-
-			// Get the id of the partner_type Particulier //
-
 
 
 			app.selectListBookingPlace = new advanceSelectBox({selectbox: $('#bookingPlace'), url: app.config.server_api_url+this.api_url_bookables});
@@ -63,8 +60,29 @@ define('app', [
 			$('.datepicker').datepicker({ format: 'dd/mm/yyyy',	weekStart: 1, autoclose: true, language: 'fr', todayHighlight: true });
 			$('.timepicker').timepicker({defaultTime: false, showMeridian: false, showInputs: false, showWidgetOnAddonClick: false});
 
+			$('#citizenPhone').mask("99 99 99 99 99");
+
+			$('*[data-toggle="tooltip"]').tooltip({container : 'body'});
+
+			$('input[name="claimerType"]').change(function(){
+				self.changeClaimerType();
+			})
+
 		},
 
+
+		
+
+		changeClaimerType: function(e){
+			if($('#isCitizen').prop('checked')){
+				$('.isCitizen').stop().slideDown();
+				$('.isAssociation').stop().slideUp();
+			}
+			else{
+				$('.isCitizen').stop().slideUp();
+				$('.isAssociation').stop().slideDown();
+			}
+		}
 
 
 
