@@ -41,7 +41,13 @@ div.select2-container.tag-large ul.select2-choices li.select2-search-choice a.se
 	border-left: 0;
 }
 
-	
+/* Validation state */
+.form-group.has-error .select2 a{
+	border-color: #a94442;
+}
+
+
+
 
 /* Wizard
 -------------------------------------------------- */
@@ -62,7 +68,7 @@ div.select2-container.tag-large ul.select2-choices li.select2-search-choice a.se
 
 #wizard{
 	padding: 10px;
-	margin-bottom: 15px;
+	margin-bottom: 20px;
 }
 
 #wizard li:not(.active) a{
@@ -92,6 +98,7 @@ div.select2-container.tag-large ul.select2-choices li.select2-search-choice a.se
 
 
 
+
 /* Panel Footer
 -------------------------------------------------- */
 .panel-footer .pager{
@@ -101,8 +108,21 @@ div.select2-container.tag-large ul.select2-choices li.select2-search-choice a.se
 
 
 
+
 /* Utilitie
 -------------------------------------------------- */
 .hide-soft{
 	display: none;
+}
+
+
+
+
+/* Form
+-------------------------------------------------- */
+.form-group span.help-block{
+	display: none;
+}
+.form-group.has-error span.help-block{
+	display: block;
 }

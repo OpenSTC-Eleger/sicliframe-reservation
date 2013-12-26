@@ -7,16 +7,16 @@
 
 		<!-- Wizard -->
 		<ul id="wizard" class="nav nav-pills nav-justified">
-			<li class="active" data-toggle="tooltip" title="<%= lang.title.aboutYou %>">
-				<a href="#tab1" data-toggle="pill"><span class="sbadge pull-left">1</span><i class="fa fa-user fa-2x"></i></a>
+			<li class="active" data-toggle="tooltip" title="<%= lang.title.aboutYou %>" data-step="0">
+				<a href="#step0" data-toggle="pill"><span class="sbadge pull-left">1</span><i class="fa fa-user fa-2x"></i></a>
 			</li>
 			<li class="sep"></li>
-			<li data-toggle="tooltip" title="<%= lang.title.aboutBooking %>">
-				<a href="#tab2" data-toggle="pill"><span class="sbadge pull-left">2</span><i class="fa fa-tag fa-2x"></i></a>
+			<li data-toggle="tooltip" title="<%= lang.title.aboutBooking %>" data-step="1">
+				<a href="#step1" data-toggle="pill"><span class="sbadge pull-left">2</span><i class="fa fa-tag fa-2x"></i></a>
 			</li>
 			<li class="sep"></li>
-			<li data-toggle="tooltip" title="<%= lang.title.summaryBooking %>">
-				<a href="#tab3" data-toggle="pill"><span class="sbadge pull-left">3</span><i class="fa fa-check fa-2x"></i></a>
+			<li data-toggle="tooltip" title="<%= lang.title.summaryBooking %>" data-step="2">
+				<a href="#step2" data-toggle="pill"><span class="sbadge pull-left">3</span><i class="fa fa-check fa-2x"></i></a>
 			</li>
 		</ul>
 
@@ -27,13 +27,13 @@
 			<div class="tab-content">
 
 				<!-- About the Claimer -->
-				<div class="tab-pane fade in active" id="tab1">
+				<div class="tab-pane fade in active" id="step0">
 					
 					<fieldset>
 					<legend><%= lang.title.aboutYou %></legend>
 
 						<!-- Claimer Type -->
-						<div class="form-group">
+						<div class="form-group" id="form-claimerType">
 							<label class="col-sm-3 control-label"><%= lang.label.youAre %> :</label>
 							<div class="col-sm-9">
 								<label class="radio-inline">
@@ -48,9 +48,10 @@
 
 						<div class="isAssociation">
 						<!-- Select Association -->
-						<div class="form-group">
+						<div class="form-group" id="form-claimerAssociation">
 							<div class="col-sm-9 col-sm-offset-3">
 								<input id="claimerAssociation" class="select2" data-placeholder="<%= lang.placeholder.selectAnAssociation %>" />
+								<span class="help-block"><%= lang.errroMessage.selectAnAssociation %></span>
 							</div>
 						</div>
 						</div>
@@ -58,26 +59,29 @@
 
 						<div class="isCitizen hide-soft">
 						<!-- Citizen Name -->
-						<div class="form-group">
+						<div class="form-group" id="form-citizenName">
 							<label for="citizenName" class="control-label col-sm-3"><%= lang.label.nameFirstname %> :</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="citizenName" placeholder="<%= lang.placeholder.nameFirstname %>" required>
+								<span class="help-block"><%= lang.errroMessage.fillName %></span>
 							</div>
 						</div>
 
 						<!-- Citizen Mail -->
-						<div class="form-group">
+						<div class="form-group" id="form-citizenMail">
 							<label for="citizenMail" class="col-sm-3 control-label"><%= lang.label.email %> :</label>
 							<div class="col-sm-9">
 								<input type="email" class="form-control" id="citizenMail" placeholder="<%= lang.placeholder.email %>" required>
+								<span class="help-block"><%= lang.errroMessage.fillMail %></span>
 							</div>
 						</div>
 
 						<!-- Citizen Phone -->
-						<div class="form-group">
+						<div class="form-group" id="form-citizenPhone">
 							<label for="citizenPhone" class="col-sm-3 control-label"><%= lang.label.phone %> :</label>
 							<div class="col-sm-9">
 								<input type="tel" class="form-control" id="citizenPhone" placeholder="<%= lang.placeholder.phone %>" required>
+								<span class="help-block"><%= lang.errroMessage.fillPhone %></span>
 							</div>
 						</div>
 						</div>
@@ -89,38 +93,40 @@
 
 
 				<!-- About The Booking -->
-				<div class="tab-pane fade" id="tab2">
+				<div class="tab-pane fade" id="step1">
 
 					<fieldset>
 					<legend><%= lang.title.aboutBooking %></legend>
 			
 						<!-- Booking Name -->
-						<div class="form-group">
+						<div class="form-group" id="form-bookingName">
 							<label for="bookingName" class="col-sm-3 control-label"><%= lang.label.bookingName %> :</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control input-lg" id="bookingName" placeholder="<%= lang.placeholder.bookingName %>" required>
+								<input type="text" class="form-control" id="bookingName" placeholder="<%= lang.placeholder.bookingName %>" required>
+								<span class="help-block"><%= lang.errroMessage.fillBookingName %></span>
 							</div>
 						</div>
 
 
 						<!-- Select Place -->
-						<div class="form-group">
+						<div class="form-group" id="form-bookingPlace">
 							<label for="bookingPlace" class="control-label col-sm-3"><%= lang.label.wantedPlace %> :</label>
 
 							<div class="col-sm-9">
 								<input id="bookingPlace" class="select2" data-placeholder="<%= lang.placeholder.selectAPlace %>" />
+								<span class="help-block"><%= lang.errroMessage.fillBookingPlace %></span>
 							</div>
 						</div>
 					
 
 						<!-- Booking checkIn -->
-						<div class="form-group">
+						<div class="form-group" id="form-bookingStartDate">
 							<label for="bookingStartDate" class="col-xs-12 col-sm-3 control-label"><%= lang.label.from %> :</label>
 
 							<!-- Checkin Sate -->
 							<div class="col-xs-5 col-sm-4 col-md-3">
 								<div class="input-group">
-									<input type="text" id="bookingStartDate" class="form-control datepicker" placeholder="<%= lang.placeholder.checkDate %>" value="<%= moment.format('DD/MM/YYYY') %>">
+									<input type="text" id="bookingStartDate" class="form-control datepicker" placeholder="<%= lang.placeholder.checkDate %>" value="<%= moment.format('DD/MM/YYYY') %>" data-date-start-date="<%= moment.format('DD/MM/YYYY') %>">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 								</div>
 							</div>
@@ -128,7 +134,7 @@
 							<!-- CheckIn Hour -->
 							<div class="col-xs-4 col-sm-3 col-md-2">
 								<div class="input-group">
-									<input type="text" class="form-control timepicker" placeholder="<%= lang.placeholder.checkHour %>" value="<%= moment.format('HH:00') %>">
+									<input type="text" id="bookingStartHour" class="form-control timepicker" placeholder="<%= lang.placeholder.checkHour %>" value="<%= moment.format('HH:00') %>">
 									<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
 								</div>
 							</div>
@@ -136,13 +142,13 @@
 
 
 						<!-- Booking checkOut -->
-						<div class="form-group">
+						<div class="form-group" id="form-bookingEndDate">
 							<label for="bookingEndDate" class="col-xs-12 col-sm-3 control-label"><%= lang.label.to %> :</label>
 
 							<!-- Checkin Sate -->
 							<div class="col-xs-5 col-sm-4 col-md-3">
 								<div class="input-group">
-									<input type="text" id="bookingEndDate" class="form-control datepicker" placeholder="<%= lang.placeholder.checkDate %>" value="<%= moment.format('DD/MM/YYYY') %>">
+									<input type="text" id="bookingEndDate" class="form-control datepicker" placeholder="<%= lang.placeholder.checkDate %>" value="<%= moment.format('DD/MM/YYYY') %>" data-date-start-date="<%= moment.format('DD/MM/YYYY') %>">
 									<span class="input-group-addon date"><i class="fa fa-calendar"></i></span>
 								</div>
 							</div>
@@ -150,7 +156,7 @@
 							<!-- CheckIn Hour -->
 							<div class="col-xs-4 col-sm-3 col-md-2">
 								<div class="input-group">
-									<input type="text" class="form-control timepicker" placeholder="<%= lang.placeholder.checkHour %>" value="<%= moment.add('hours', 3).format('HH:00') %>">
+									<input type="text" id="bookingEndHour" class="form-control timepicker" placeholder="<%= lang.placeholder.checkHour %>" value="<%= moment.add('hours', 3).format('HH:00') %>">
 									<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
 								</div>
 							</div>
@@ -163,7 +169,7 @@
 
 
 				<!-- Summary of the booking -->
-				<div class="tab-pane fade" id="tab3">
+				<div class="tab-pane fade" id="step2">
 
 					<fieldset>
 					<legend><%= lang.title.summaryBooking %></legend>
@@ -171,10 +177,7 @@
 
 						<div class="form-group">
 							<div class="col-sm-offset-4 col-sm-4">
-								<button type="submit" class="btn btn-primary btn-block btn-lg" 
-										data-loading-text="<i class='fa fa-refresh fa-spin'></i>&nbsp; <%= lang.sendingInProgress %>">
-									<%= lang.action.send %>
-								</button>
+
 							</div>
 						</div>
 
@@ -191,9 +194,20 @@
 
 	<div class="panel-footer">
 		<ul class="pager">
-			<li class="previous"><a href="#"> <i class="fa fa-chevron-left"></i> <%= lang.action.previous %></a></li>
-			<li class="next disabled"><a href="#"><%= lang.action.next %>  <i class="fa fa-chevron-right"></i></a></li>
+			<!-- Prev Button -->
+			<li class="previous">
+				<a href="#" class="hide"><i class="fa fa-chevron-left"></i> <%= lang.action.previous %></a>
+			</li>
+			<!-- Next Button -->
+			<li class="next">
+				<a href="#"><%= lang.action.next %>  <i class="fa fa-chevron-right"></i></a>
+
+				<button type="submit" class="hide btn btn-primary pull-right" data-loading-text="<i class='fa fa-refresh fa-spin'></i>&nbsp; <%= lang.sendingInProgress %>">
+					<%= lang.action.send %>
+				</button>
+			</li>
 		</ul>
+
 	</div>
 
 </div> <!-- /Panel -->

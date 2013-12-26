@@ -33,6 +33,15 @@
 		"sendingInProgress" : "Envoi en cours..."
 	},
 
+	"errroMessage" : {
+		"selectAnAssociation"  : "Merci de sélectionner votre organisation",
+		"fillName"             : "Renseigner votre nom",
+		"fillMail"             : "Renseigner votre adresse email",
+		"fillPhone"            : "Renseigner votre numéro de téléphone",
+		"fillBookingName"      : "Renseigner le nom de l'événement",
+		"fillBookingPlace"     : "Merci sélectionner votre salle",
+		"fillBookingEndDate"   : "La date n'est pas correct"
+	},
 
 
 	"placeholder" : {

@@ -132,7 +132,7 @@ define([
 		/** Set an item as selected
 		*/
 		this.setSelectedItem = function(item){
-			this.select2.select2('data', {id: item[0], text: item[1]});
+			this.selectbox.select2('data', {id: item[0], text: item[1]});
 		};
 
 
@@ -147,7 +147,7 @@ define([
 				data.push(itemData);
 			})
 
-			this.select2.select2('data', data);
+			this.selectbox.select2('data', data);
 		};
 
 
@@ -156,8 +156,8 @@ define([
 		*/
 		this.getSelectedItem = function(){
 
-			if(!_.isNull(this.select2.select2('data'))){
-				var returnId = this.select2.select2('data').id;
+			if(!_.isNull(this.selectbox.select2('data'))){
+				var returnId = this.selectbox.select2('data').id;
 			}
 			else{
 				var returnId = '';
@@ -171,8 +171,8 @@ define([
 		*/
 		this.getSelectedText = function(){
 
-			if(!_.isNull(this.select2.select2('data'))){
-				var name = this.select2.select2('data').text;
+			if(!_.isNull(this.selectbox.select2('data'))){
+				var name = this.selectbox.select2('data').text;
 			}
 			else{
 				var name = '';
@@ -187,9 +187,9 @@ define([
 
 			var returnIds = [];
 
-			if(!_.isEmpty(this.select2.select2('data'))){
+			if(!_.isEmpty(this.selectbox.select2('data'))){
 				
-				_.each(this.select2.select2('data'), function(item){
+				_.each(this.selectbox.select2('data'), function(item){
 					returnIds.push(item.id);
 				})
 			}
@@ -202,7 +202,7 @@ define([
 		/** Reset the selectBox Value
 		*/
 		this.reset = function(){
-			this.select2.select2('data', null);
+			this.selectbox.select2('data', null);
 		};
 
 
