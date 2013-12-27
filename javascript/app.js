@@ -4,10 +4,10 @@
 define('app', [
 
 	// Load our app module and pass it to our definition function
-	'jquery', 'bootstrap', 'underscore', 'helper', 'moment', 'datepicker-lang', 'timepicker', 'advanceSelectBox', 'jquery.maskedinput',
-	'text!form-new-resa'
+	'jquery', 'bootstrap', 'underscore', 'helper', 'bookingsModel', 'moment', 'datepicker-lang', 'timepicker', 'advanceSelectBox', 'jquery.maskedinput',
+	'text!form-new-resa', 'text!booking-summary'
 
-], function($, bs, _, Helper, moment, datepicker, timepicker, advanceSelectBox, mask, formTemplate){
+], function($, bs, _, Helper, BookingsModel, moment, datepicker, timepicker, advanceSelectBox, mask, formTemplate, bookingSummaryTemplate){
 
 	'use strict';
 
@@ -16,18 +16,23 @@ define('app', [
 
 		api_url_partner   : 'open_object/partners',
 		api_url_bookables : 'openresa/partners/<%= id %>/bookables',
+		api_url_bookings  : 'openresa/bookings',
 
-		configPath : 'config/configuration.json',
-		langPath   : 'i18n/'+window.navigator.language+'/lang.json',
+		configPath       : 'config/configuration.json',
+		langPath         : 'i18n/'+window.navigator.language+'/lang.json',
 
 		// Global Variable //
-		config         : {},
-		lang           : {},
+		config           : {},
+		lang             : {},
 
-		container  : $('#container'),
+		appContainer        : $('#container'),
+		bookingSumContainer : '#bookingSummary',
 
-		currentStep : 0,
-		maxStep     : 2,
+		currentStep      : 0,
+		maxStep          : 2,
+
+
+		bookingsModel   : new BookingsModel(),
 
 
 
@@ -42,7 +47,7 @@ define('app', [
 				moment  : moment()
 			});
 
-			this.container.html(tmp);
+			this.appContainer.html(tmp);
 
 
 			app.selectListClaimerAssociation = new advanceSelectBox({selectbox: $('#claimerAssociation'), url: app.config.server_api_url+this.api_url_partner});
@@ -53,16 +58,16 @@ define('app', [
 			app.selectListClaimerAssociation.setSearchParam(searchParam , true);
 
 
-			var url = _.template(app.api_url_bookables, {id: 260});
-			app.selectListBookingPlace = new advanceSelectBox({selectbox: $('#bookingPlace'), url: app.config.server_api_url+url});
+			app.selectListBookingPlace = new advanceSelectBox({selectbox: $('#bookingPlace'), url: app.config.server_api_url});
 			app.selectListBookingPlace.render();
+			var searchParam = { field : 'type_prod', operator : 'ilike', value : 'site' };
+			app.selectListBookingPlace.setSearchParam(searchParam , true);
 
 
 			$('.datepicker').datepicker({ format: 'dd/mm/yyyy',	weekStart: 1, autoclose: true, language: 'fr', todayHighlight: true });
 			$('.timepicker').timepicker({defaultTime: false, showMeridian: false, showInputs: false, showWidgetOnAddonClick: false});
 
 			$('#citizenPhone').mask("09 99 99 99 99");
-
 			$('*[data-toggle="tooltip"]').tooltip({container : 'body'});
 
 			
@@ -72,12 +77,18 @@ define('app', [
 			});
 
 
-						// Claimer type change //
+			// Claimer type change //
 			$('#bookingStartDate').datepicker().on('changeDate', function(){
 				$('#bookingEndDate').datepicker('setStartDate', $('#bookingStartDate').datepicker('getDate'));
 				$('#bookingEndDate').datepicker('setDate', $('#bookingStartDate').datepicker('getDate'));
 			});
 
+
+			// Association change, update the places List //
+			$('#claimerAssociation').on('change', function(){
+				var url = _.template(app.api_url_bookables, {id: app.selectListClaimerAssociation.getSelectedItem()});
+				app.selectListBookingPlace.url = app.config.server_api_url+url;
+			})
 
 
 			// Previous button is click //
@@ -91,6 +102,8 @@ define('app', [
 				self.nextStep();
 			});
 
+
+			this.bookingsModel.getName();
 		},
 
 
@@ -98,13 +111,27 @@ define('app', [
 		/** When the claimer type change
 		*/
 		changeClaimerType: function(e){
+			// Is Citizen //
 			if($('#isCitizen').prop('checked')){
 				$('.isCitizen').stop().slideDown();
 				$('.isAssociation').stop().slideUp();
+
+				$('#citizenName').focus();
+
+				// Retrieve the Id of the Citizen partner //
+				this.getIdOfPartnerCitizen().done(function(data){
+
+					var url = _.template(app.api_url_bookables, {id: data[0].id});
+					app.selectListBookingPlace.url = app.config.server_api_url+url;
+				});
+
+				this.bookingsModel.setCitizen(true);
 			}
 			else{
 				$('.isCitizen').stop().slideUp();
 				$('.isAssociation').stop().slideDown();
+
+				this.bookingsModel.setCitizen(false);
 			}
 		},
 
@@ -166,6 +193,7 @@ define('app', [
 		/** Check the form of the step
 		*/
 		checkStep: function(step){
+
 			switch(step){
 				case 0:
 					if(this.checkStep0()){
@@ -173,12 +201,22 @@ define('app', [
 						$('li[data-step="0"]').addClass('success');
 						return true;
 					}
+					else{
+						$('#step0 .form-group.has-error input').first().focus();
+						return false;
+					}
 				break;
 				case 1:
 					if(this.checkStep1()){
 						$('#step1 .form-group.has-error').removeClass('has-error');
 						$('li[data-step="1"]').addClass('success');
+
+						this.displaySummary();
 						return true;
+					}
+					else{
+						$('#step1 .form-group.has-error input').first().focus();
+						return false;
 					}
 				break;
 			}
@@ -189,9 +227,9 @@ define('app', [
 		/** Check step 0
 		*/
 		checkStep0: function(){
-			var isCitizen = $('#isCitizen').prop('checked');
-			var citizenName = $('#citizenName').val();
-			var citizenMail = $('#citizenMail').val();
+			var isCitizen    = $('#isCitizen').prop('checked');
+			var citizenName  = $('#citizenName').val();
+			var citizenMail  = $('#citizenMail').val();
 			var citizenPhone = $('#citizenPhone').val();
 
 			var returnStatement = true;
@@ -203,6 +241,7 @@ define('app', [
 				}
 				else{
 					$('#form-citizenName').removeClass('has-error');
+					this.bookingsModel.setCitizenName(citizenName);
 				}
 
 				if(_.isEmpty(citizenMail) || !Helper.checkMail(citizenMail)){
@@ -211,6 +250,7 @@ define('app', [
 				}
 				else{
 					$('#form-citizenMail').removeClass('has-error');
+					this.bookingsModel.setCitizenMail(citizenMail);
 				}
 
 				if(_.isEmpty(citizenPhone)){
@@ -219,12 +259,16 @@ define('app', [
 				}
 				else{
 					$('#form-citizenPhone').removeClass('has-error');
+					this.bookingsModel.setCitizenPhone(citizenPhone);
 				}
 			}
 			else{
 				if(app.selectListClaimerAssociation.getSelectedItem() == ''){
 					$('#form-claimerAssociation').addClass('has-error');
 					returnStatement = false;
+				}
+				else{
+					this.bookingsModel.setPartner(app.selectListClaimerAssociation.getSelectedItem());
 				}
 			}
 
@@ -236,9 +280,14 @@ define('app', [
 		/** Check step 1
 		*/
 		checkStep1: function(){
-			var bookingName = $('#bookingName').val();
-			var bookingStartDate = moment($('#bookingStartDate').val()+' '+$('#bookingStartHour').val());
-			var bookingEndDate = moment($('#bookingEndDate').val()+' '+$('#bookingEndHour').val());
+			var bookingName      = $('#bookingName').val();
+			var bookingStartDate = $('#bookingStartDate').val()
+			var bookingStartHour = $('#bookingStartHour').val();
+			var bookingEndDate   = $('#bookingEndDate').val()
+			var bookingEndHour   = $('#bookingEndHour').val();
+
+			var mStartDate = moment(bookingStartDate+' '+bookingStartHour, 'DD/MM/YYYY HH:mm');
+			var mEndDate   = moment(bookingEndDate+' '+bookingEndHour, 'DD/MM/YYYY HH:mm');
 
 			var returnStatement = true;
 
@@ -249,6 +298,7 @@ define('app', [
 			}
 			else{
 				$('#form-bookingName').removeClass('has-error');
+				this.bookingsModel.setBookingsName(bookingName);
 			}
 
 			// Booking Place //
@@ -257,15 +307,61 @@ define('app', [
 				returnStatement = false;
 			}
 			else{
-				$('#form-bookingPlace').removeClass('has-error');	
+				$('#form-bookingPlace').removeClass('has-error');
 			}
 
 			// Booking Start Date //
-			
+			if(!mStartDate.isValid()){
+				$('#form-bookingStartDate').addClass('has-error');
+				returnStatement = false;
+			}
+			else{
+				this.bookingsModel.setStartDate(mStartDate);
+			}
+
+			// Booking End Date //
+			if(!mEndDate.isValid()){
+				$('#form-bookingEndDate').addClass('has-error');
+				returnStatement = false;
+			}
+			else{
+				this.bookingsModel.setEndDate(mEndDate);
+			}
+
+			if(mStartDate > mEndDate){
+				$('#form-bookingEndDate').addClass('has-error');
+				returnStatement = false;	
+			}
 
 			return returnStatement;
 		},
 
+
+
+		displaySummary: function(){
+			console.log(this.bookingsModel);
+
+		this.appContainer.find(app.bookingSumContainer).html(bookingSummaryTemplate);
+		},
+
+
+
+		/** Get the id of the Partner Citizen
+		*/
+		getIdOfPartnerCitizen: function(){
+
+			var params = [{ field : 'type_id.code', operator : 'ilike', value : 'PART'}];
+
+			return $.ajax({
+				url: app.config.server_api_url+app.api_url_partner,
+				method: 'GET',
+				data: {
+					fields  : ['id'],
+					filters : Helper.objectifyFilters(params)
+				}
+			})
+
+		}
 
 
 	};

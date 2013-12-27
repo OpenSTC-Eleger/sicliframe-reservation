@@ -3,9 +3,9 @@
 */
 define('main', [
 
-	'jquery', 'app', 'helper'
+	'jquery', 'app', 'helper', 'moment'
 
-], function($, app, Helper){
+], function($, app, Helper, moment){
 
 	'use strict';
 
@@ -30,9 +30,10 @@ define('main', [
 				// Set the Ajax setup //
 				Helper.setAjaxSetUp(app.config.token_api);
 
+				moment.lang(window.navigator.language);
 
+				// Create the form //
 				app.formView();
-
 			})
 			.fail(function(e){
 				throw new Error('Unable to init the app');

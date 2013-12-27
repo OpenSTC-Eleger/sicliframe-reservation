@@ -30,7 +30,8 @@
 
 	"infoMessage" : {
 		"validSendBooking"  : "Votre demande a bien été prise en compte.",
-		"sendingInProgress" : "Envoi en cours..."
+		"sendingInProgress" : "Envoi en cours...",
+		"aboutTheBooking"   : "Merci de noter que votre demande sera prise en compte sous réserve des disponibilités."
 	},
 
 	"errroMessage" : {
@@ -40,7 +41,7 @@
 		"fillPhone"            : "Renseigner votre numéro de téléphone",
 		"fillBookingName"      : "Renseigner le nom de l'événement",
 		"fillBookingPlace"     : "Merci sélectionner votre salle",
-		"fillBookingEndDate"   : "La date n'est pas correct"
+		"fillBookingDate"      : "La date n'est pas correct"
 	},
 
 

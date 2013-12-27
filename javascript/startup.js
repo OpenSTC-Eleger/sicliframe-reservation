@@ -15,7 +15,7 @@ requirejs.config({
 		'bootstrap'          : '//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min',
 		'underscore'         : '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min',
 		'underscore.string'  : '//cdnjs.cloudflare.com/ajax/libs/underscore.string/2.3.3/underscore.string.min',
-		'moment'             : '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.4.0/moment.min',
+		'moment'             : '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.4.0/moment-with-langs.min',
 		'jquery.maskedinput' : '//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.3.1/jquery.maskedinput.min',
 		
 		'select2'            : '//cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2.min',
@@ -28,13 +28,16 @@ requirejs.config({
 		'app'                : 'app',
 		'main'               : 'main',
 		'helper'             : 'helper',
-		'advanceSelectBox'   : 'advanceSelectBox',
+		'advanceSelectBox'   : 'AdvanceSelectBox',
+
+		'bookingsModel'      : 'BookingsModel',
 
 
 		/* ########
 		* Templates
 		*/
-		'form-new-resa'      : '../templates/form-new-resa.html'
+		'form-new-resa'      : '../templates/form-new-resa.html',
+		'booking-summary'    : '../templates/booking-summary.html'
 	},
 
 	shim: {

@@ -129,6 +129,7 @@
 									<input type="text" id="bookingStartDate" class="form-control datepicker" placeholder="<%= lang.placeholder.checkDate %>" value="<%= moment.format('DD/MM/YYYY') %>" data-date-start-date="<%= moment.format('DD/MM/YYYY') %>">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 								</div>
+								<span class="help-block"><%= lang.errroMessage.fillBookingDate %></span>
 							</div>
 
 							<!-- CheckIn Hour -->
@@ -151,6 +152,7 @@
 									<input type="text" id="bookingEndDate" class="form-control datepicker" placeholder="<%= lang.placeholder.checkDate %>" value="<%= moment.format('DD/MM/YYYY') %>" data-date-start-date="<%= moment.format('DD/MM/YYYY') %>">
 									<span class="input-group-addon date"><i class="fa fa-calendar"></i></span>
 								</div>
+								<span class="help-block"><%= lang.errroMessage.fillBookingDate %></span>
 							</div>
 
 							<!-- CheckIn Hour -->
@@ -173,13 +175,12 @@
 
 					<fieldset>
 					<legend><%= lang.title.summaryBooking %></legend>
+							
+						<div id="bookingSummary" class="col-sm-offset-1"></div>
 
-
-						<div class="form-group">
-							<div class="col-sm-offset-4 col-sm-4">
-
-							</div>
-						</div>
+						<p class="text-muted text-right no-margin">
+							<i class="fa fa-info-circle"></i> <%= lang.infoMessage.aboutTheBooking %>
+						</p>
 
 					</fieldset>
 

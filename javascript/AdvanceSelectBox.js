@@ -1,3 +1,6 @@
+/******************************************
+* Advanced SelectBox View
+*/
 define([
 
 	'jquery', 'underscore', 'underscore.string', 'helper', 'select2-lang'
@@ -7,11 +10,8 @@ define([
 	'use strict';
 
 
-	/******************************************
-	* Advanced SelectBox View
-	*/
 	var AdvancedSelectBox = function(params){
-		
+
 
 		this.selectbox    =  params.selectbox;
 
