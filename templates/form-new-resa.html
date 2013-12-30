@@ -8,21 +8,21 @@
 		<!-- Wizard -->
 		<ul id="wizard" class="nav nav-pills nav-justified">
 			<li class="active" data-toggle="tooltip" title="<%= lang.title.aboutYou %>" data-step="0">
-				<a href="#step0" data-toggle="pill"><span class="sbadge pull-left">1</span><i class="fa fa-user fa-2x"></i></a>
+				<a href="#step0" data-toggle=""><span class="sbadge pull-left">1</span><i class="fa fa-user fa-2x"></i></a>
 			</li>
 			<li class="sep"></li>
-			<li data-toggle="tooltip" title="<%= lang.title.aboutBooking %>" data-step="1">
-				<a href="#step1" data-toggle="pill"><span class="sbadge pull-left">2</span><i class="fa fa-tag fa-2x"></i></a>
+			<li class="disabled" data-toggle="tooltip" title="<%= lang.title.aboutBooking %>" data-step="1">
+				<a href="#step1" data-toggle=""><span class="sbadge pull-left">2</span><i class="fa fa-tag fa-2x"></i></a>
 			</li>
 			<li class="sep"></li>
-			<li data-toggle="tooltip" title="<%= lang.title.summaryBooking %>" data-step="2">
-				<a href="#step2" data-toggle="pill"><span class="sbadge pull-left">3</span><i class="fa fa-check fa-2x"></i></a>
+			<li class="disabled" data-toggle="tooltip" title="<%= lang.title.summaryBooking %>" data-step="2">
+				<a href="#step2" data-toggle=""><span class="sbadge pull-left">3</span><i class="fa fa-check fa-2x"></i></a>
 			</li>
 		</ul>
 
 
 		<!-- Form -->
-		<form class="form-horizontal" role="form">
+		<form id="form" class="form-horizontal" role="form">
 
 			<div class="tab-content">
 
@@ -62,7 +62,7 @@
 						<div class="form-group" id="form-citizenName">
 							<label for="citizenName" class="control-label col-sm-3"><%= lang.label.nameFirstname %> :</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="citizenName" placeholder="<%= lang.placeholder.nameFirstname %>" required>
+								<input type="text" class="form-control" id="citizenName" placeholder="<%= lang.placeholder.nameFirstname %>">
 								<span class="help-block"><%= lang.errroMessage.fillName %></span>
 							</div>
 						</div>
@@ -71,7 +71,7 @@
 						<div class="form-group" id="form-citizenMail">
 							<label for="citizenMail" class="col-sm-3 control-label"><%= lang.label.email %> :</label>
 							<div class="col-sm-9">
-								<input type="email" class="form-control" id="citizenMail" placeholder="<%= lang.placeholder.email %>" required>
+								<input type="email" class="form-control" id="citizenMail" placeholder="<%= lang.placeholder.email %>">
 								<span class="help-block"><%= lang.errroMessage.fillMail %></span>
 							</div>
 						</div>
@@ -80,7 +80,7 @@
 						<div class="form-group" id="form-citizenPhone">
 							<label for="citizenPhone" class="col-sm-3 control-label"><%= lang.label.phone %> :</label>
 							<div class="col-sm-9">
-								<input type="tel" class="form-control" id="citizenPhone" placeholder="<%= lang.placeholder.phone %>" required>
+								<input type="tel" class="form-control" id="citizenPhone" placeholder="<%= lang.placeholder.phone %>">
 								<span class="help-block"><%= lang.errroMessage.fillPhone %></span>
 							</div>
 						</div>
@@ -102,7 +102,7 @@
 						<div class="form-group" id="form-bookingName">
 							<label for="bookingName" class="col-sm-3 control-label"><%= lang.label.bookingName %> :</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="bookingName" placeholder="<%= lang.placeholder.bookingName %>" required>
+								<input type="text" class="form-control" id="bookingName" placeholder="<%= lang.placeholder.bookingName %>">
 								<span class="help-block"><%= lang.errroMessage.fillBookingName %></span>
 							</div>
 						</div>
@@ -175,6 +175,12 @@
 
 					<fieldset>
 					<legend><%= lang.title.summaryBooking %></legend>
+
+
+						<div id="saveMessage" class="alert alert-success hide-soft">
+  							<strong><i class="fa fa-check fa-lg fa-2x"></i></strong> <%= lang.infoMessage.validSendBooking %>
+						</div>
+
 							
 						<div id="bookingSummary" class="col-sm-offset-1"></div>
 
@@ -203,7 +209,7 @@
 			<li class="next">
 				<a href="#"><%= lang.action.next %>  <i class="fa fa-chevron-right"></i></a>
 
-				<button type="submit" class="hide btn btn-primary pull-right" data-loading-text="<i class='fa fa-refresh fa-spin'></i>&nbsp; <%= lang.sendingInProgress %>">
+				<button type="submit" form="form" class="hide btn btn-primary pull-right" data-loading-text="<i class='fa fa-refresh fa-spin'></i>&nbsp; <%= lang.sendingInProgress %>">
 					<%= lang.action.send %>
 				</button>
 			</li>

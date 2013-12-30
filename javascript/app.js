@@ -14,9 +14,10 @@ define('app', [
 
 	var app =  {
 
-		api_url_partner   : 'open_object/partners',
-		api_url_bookables : 'openresa/partners/<%= id %>/bookables',
-		api_url_bookings  : 'openresa/bookings',
+		api_url_partner       : 'open_object/partners',
+		api_url_bookables     : 'openresa/partners/<%= id %>/bookables',
+		api_url_bookings      : 'openresa/bookings',
+		api_url_booking_lines : 'openresa/booking_lines',
 
 		configPath       : 'config/configuration.json',
 		langPath         : 'i18n/'+window.navigator.language+'/lang.json',
@@ -33,6 +34,7 @@ define('app', [
 
 
 		bookingsModel   : new BookingsModel(),
+		bookingLines    : {},
 
 
 
@@ -88,8 +90,21 @@ define('app', [
 			$('#claimerAssociation').on('change', function(){
 				var url = _.template(app.api_url_bookables, {id: app.selectListClaimerAssociation.getSelectedItem()});
 				app.selectListBookingPlace.url = app.config.server_api_url+url;
-			})
+			});
 
+
+			// Association change, update the places List //
+			$('#bookingPlace').on('change', function(){
+				app.bookingLines.name = app.selectListBookingPlace.getSelectedText();
+				app.bookingLines.line_id = app.selectListBookingPlace.getSelectedItem();
+			});
+
+
+
+			// Disable tab navigation //
+			$('li.disabled a').click(function(e){
+				e.preventDefault();
+			});
 
 			// Previous button is click //
 			$('li.previous a').click(function(e){
@@ -103,7 +118,11 @@ define('app', [
 			});
 
 
-			this.bookingsModel.getName();
+			// Save the Booking //
+			$('#form').submit(function(e){
+				e.preventDefault();
+				self.submitForm();
+			});
 		},
 
 
@@ -111,6 +130,9 @@ define('app', [
 		/** When the claimer type change
 		*/
 		changeClaimerType: function(e){
+			var self = this;
+
+
 			// Is Citizen //
 			if($('#isCitizen').prop('checked')){
 				$('.isCitizen').stop().slideDown();
@@ -123,6 +145,8 @@ define('app', [
 
 					var url = _.template(app.api_url_bookables, {id: data[0].id});
 					app.selectListBookingPlace.url = app.config.server_api_url+url;
+
+					self.bookingsModel.setPartner(data[0].id);
 				});
 
 				this.bookingsModel.setCitizen(true);
@@ -269,6 +293,7 @@ define('app', [
 				}
 				else{
 					this.bookingsModel.setPartner(app.selectListClaimerAssociation.getSelectedItem());
+					this.bookingsModel.setPartnerName(app.selectListClaimerAssociation.getSelectedText());
 				}
 			}
 
@@ -338,10 +363,52 @@ define('app', [
 
 
 
+		/** Display the Summary
+		*/
 		displaySummary: function(){
-			console.log(this.bookingsModel);
 
-		this.appContainer.find(app.bookingSumContainer).html(bookingSummaryTemplate);
+			var tmp = _.template(bookingSummaryTemplate, { booking : this.bookingsModel, lang : app.lang, bookingLines: app.bookingLines })
+
+			this.appContainer.find(app.bookingSumContainer).html(tmp);
+		},
+
+
+
+		/** Display the Summary
+		*/
+		submitForm : function(){
+			var self = this;
+
+			console.log(this.bookingsModel);
+			var obj = {
+				name               : this.bookingsModel.getName(),
+				checkin            : this.bookingsModel.checkin,
+				checkout           : this.bookingsModel.checkout,
+				partner_id         : this.bookingsModel.partner_id,
+				partner_order_id   : this.bookingsModel.partner_id,
+				partner_shipping_id: this.bookingsModel.partner_id,
+				partner_invoice_id : this.bookingsModel.partner_id
+			}
+
+			if(this.bookingsModel.isCitizen()){
+				obj.people_name = this.bookingsModel.getClaimer();
+				obj.people_email = this.bookingsModel.getPeopleMail();
+				obj.people_phone = this.bookingsModel.getPeoplePhone();
+			}
+
+			$('button[type="submit"]').button('loading');
+			/*return $.ajax({
+				url   : app.config.server_api_url+app.api_url_bookings,
+				method: 'POST',
+				dataType: 'json',
+				data  : JSON.stringify(obj)
+			})*/
+
+			$('#saveMessage').slideDown('slow');
+
+			$('li[data-step="2"]').addClass('success');
+			$('ul.pager').addClass('invisible');
+
 		},
 
 

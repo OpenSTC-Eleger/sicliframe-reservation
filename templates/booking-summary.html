@@ -1,17 +1,22 @@
 <dl class="dl-horizontal lead dl-condensed">
 	<!-- Claimer -->
 	<dt><i class="fa fa-user fa-fw fa-lg text-muted"></i></dt>
-	<dd id="sumClaimer"></dd>
+	<dd id="sumClaimer"><%= booking.getClaimer() %></dd>
+
+	<% if(booking.isCitizen()){ %>
+		<dd id="sumClaimer"><i class="fa fa-envelope-o fa-fw"></i> <%= booking.getPeopleMail() %></dd>
+		<dd id="sumClaimer"><i class="fa fa-phone fa-fw"></i> <%= booking.getPeoplePhone() %></dd>
+	<% } %>
 
 	<!-- Booking Name -->
 	<dt><i class="fa fa-tag fa-fw fa-lg text-muted"></i></dt>
-	<dd id="sumBookingName"><%= booking.name %></dd>
+	<dd id="sumBookingName"><%= booking.getName() %></dd>
 
 	<!-- Booking Place -->
 	<dt><i class="fa fa-map-marker fa-fw fa-lg text-muted"></i></dt>
-	<dd id="sumBookingPlace"><%= booking.place %></dd>
+	<dd id="sumBookingPlace"><%= bookingLines.name %></dd>
 
 	<!-- Booking Date -->
 	<dt><i class="fa fa-calendar fa-fw fa-lg text-muted"></i></dt>
-	<dd id="sumBookingDate"><%= booking.date %></dd>
+	<dd id="sumBookingDate"><strong><%= lang.dateFrom %></strong> <%= booking.getStartDate() %> <strong> <%= lang.dateTo %> </strong><%= booking.getEndDate() %></dd>
 </dl>

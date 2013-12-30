@@ -13,31 +13,53 @@ define([
 	var BookingsModel = function(){
 
 		this.fields = ['name', 'checkin', 'checkout', 'partner_id', 'people_name', 'people_email', 'people_phone', 'is_citizen', 'resources'];
-		
+
 
 		/** Get Name
 		*/
 		this.getName = function(){
-			return this.name;	
+			return str.titleize(this.name);
 		};
-
-
 
 		/** Get CheckDate
 		*/
-		this.getCheckDate = function(){
-			return moment(checkin).format('LLL');
+		this.getStartDate = function(){
+			return moment(this.checkin).format('LLL');
 		};
+		this.getEndDate = function(){
+			return moment(this.checkout).format('LLL');
+		};
+		this.getClaimer = function(){
+			if(!this.is_citizen){
+				return this.partner_name;
+			}
+			else{
+				return this.people_name;
+			}
+		};
+		this.getPeopleMail = function(){
+			return this.people_email;
+		}
+		this.getPeoplePhone = function(){
+			return this.people_phone;
+		}
+		this.isCitizen = function(){
+			return this.is_citizen;
+		}
 
 
-		// Citizen Phone //
+		// Partner //
 		this.setPartner = function(id){
 			this.partner_id = id;
+		};
+		// Partner Name //
+		this.setPartnerName = function(name){
+			this.partner_name = name;
 		};
 
 		// Set Booking is Citizen //
 		this.setCitizen = function(param){
-			this.is_citizen = true;
+			this.is_citizen = param;
 		};
 		// Citizen Name //
 		this.setCitizenName = function(param){
