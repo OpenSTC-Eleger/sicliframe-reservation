@@ -385,29 +385,32 @@ define('app', [
 				checkin            : this.bookingsModel.checkin,
 				checkout           : this.bookingsModel.checkout,
 				partner_id         : this.bookingsModel.partner_id,
-				partner_order_id   : this.bookingsModel.partner_id,
-				partner_shipping_id: this.bookingsModel.partner_id,
-				partner_invoice_id : this.bookingsModel.partner_id
+				reservation_line   : [[0, 0, {reserve_product : app.bookingLines.line_id }]]
 			}
 
 			if(this.bookingsModel.isCitizen()){
-				obj.people_name = this.bookingsModel.getClaimer();
+				obj.is_citizen   = true;
+				obj.people_name  = this.bookingsModel.getClaimer();
 				obj.people_email = this.bookingsModel.getPeopleMail();
 				obj.people_phone = this.bookingsModel.getPeoplePhone();
 			}
 
 			$('button[type="submit"]').button('loading');
-			/*return $.ajax({
+			var rest = $.ajax({
 				url   : app.config.server_api_url+app.api_url_bookings,
 				method: 'POST',
 				dataType: 'json',
 				data  : JSON.stringify(obj)
-			})*/
+			})
 
-			$('#saveMessage').slideDown('slow');
+			rest.done(function(){
+				$('#saveMessage').slideDown('slow');
 
-			$('li[data-step="2"]').addClass('success');
-			$('ul.pager').addClass('invisible');
+				$('li[data-step="2"]').addClass('success');
+				$('ul.pager').addClass('invisible');				
+			})
+
+
 
 		},
 
