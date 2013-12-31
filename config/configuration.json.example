@@ -1,0 +1,4 @@
+{
+	"server_api_url" : "http://url_serveur/api/",
+	"token_api"      : "token_api"
+}

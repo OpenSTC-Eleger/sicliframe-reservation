@@ -135,6 +135,11 @@ dl.lead dd{
 .dl-condensed dd{
 	margin-left: 40px;
 }
+.panel-default{
+	margin-bottom: 10px;
+}
+
+
 
 /* Form
 -------------------------------------------------- */
