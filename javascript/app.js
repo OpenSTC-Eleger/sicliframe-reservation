@@ -123,6 +123,12 @@ define('app', [
 				e.preventDefault();
 				self.submitForm();
 			});
+
+			$('#wizard li a').on('shown.bs.tab', function (e) {
+
+  				var id = $(e.target).attr('href');
+  				$(id + ' .form-group .form-control').first().focus();
+			})
 		},
 
 
@@ -227,6 +233,7 @@ define('app', [
 					}
 					else{
 						$('#step0 .form-group.has-error input').first().focus();
+						app.appContainer.find('#bookingName').focus();
 						return false;
 					}
 				break;
