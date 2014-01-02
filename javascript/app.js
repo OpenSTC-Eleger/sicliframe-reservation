@@ -83,10 +83,15 @@ define('app', [
 			});
 
 
-			// Claimer type change //
+			// Start date change //
 			$('#bookingStartDate').datepicker().on('changeDate', function(){
 				$('#bookingEndDate').datepicker('setStartDate', $('#bookingStartDate').datepicker('getDate'));
 				$('#bookingEndDate').datepicker('setDate', $('#bookingStartDate').datepicker('getDate'));
+			});
+
+			// Start Hour change //
+			$('#bookingStartHour').timepicker().on('changeTime.timepicker', function(e){
+				$('#bookingEndHour').timepicker('setTime', moment($('#bookingStartHour').val(), 'HH:mm').add('hours', 3).format('HH:00'));
 			});
 
 
