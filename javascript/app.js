@@ -132,6 +132,9 @@ define('app', [
   				var id = $(e.target).attr('href');
   				$(id + ' .form-group .form-control').first().focus();
 			})
+
+
+			console.log(moment('2014-01-09 14:00:00').utc().format('YYYY-MM-DD HH:mm:ss'));
 		},
 
 
@@ -413,11 +416,10 @@ define('app', [
 		submitForm : function(){
 			var self = this;
 
-			console.log(this.bookingsModel);
 			var obj = {
 				name               : this.bookingsModel.getName(),
-				checkin            : this.bookingsModel.checkin,
-				checkout           : this.bookingsModel.checkout,
+				checkin            : moment(this.bookingsModel.checkin).utc().format('YYYY-MM-DD HH:mm:ss'),
+				checkout           : moment(this.bookingsModel.checkout).utc().format('YYYY-MM-DD HH:mm:ss'),
 				partner_id         : this.bookingsModel.partner_id,
 				reservation_line   : [[0, 0, {reserve_product : app.bookingLines.line_id }]]
 			}
