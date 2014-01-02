@@ -132,9 +132,6 @@ define('app', [
   				var id = $(e.target).attr('href');
   				$(id + ' .form-group .form-control').first().focus();
 			})
-
-
-			console.log(moment('2014-01-09 14:00:00').utc().format('YYYY-MM-DD HH:mm:ss'));
 		},
 
 
@@ -144,6 +141,8 @@ define('app', [
 		changeClaimerType: function(e){
 			var self = this;
 
+			// Reset the booking Select Place //
+			app.selectListBookingPlace.reset();
 
 			// Is Citizen //
 			if($('#isCitizen').prop('checked')){
@@ -443,10 +442,18 @@ define('app', [
 			})
 
 			rest.done(function(){
-				$('#saveMessage').slideDown('slow');
+				var message = '<strong><i class="fa fa-check fa-lg fa-2x"></i></strong> '+ app.lang.infoMessage.validSendBooking;
+				$('#submitMessage').html(message).addClass('alert-success').slideDown('slow');
 
 				$('li[data-step="2"]').addClass('success');
-				$('ul.pager').addClass('invisible');				
+				$('ul.pager').addClass('invisible');
+			})
+			.fail(function(){
+				var message = '<strong><i class="fa fa-times fa-lg fa-2x"></i></strong> '+ app.lang.errorMessage.errorSendBooking;
+				$('#submitMessage').html(message).addClass('alert-danger').slideDown('slow');
+			})
+			.always(function(){
+				$('button[type="submit"]').button('reset');
 			})
 
 

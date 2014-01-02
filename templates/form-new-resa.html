@@ -51,7 +51,7 @@
 						<div class="form-group" id="form-claimerAssociation">
 							<div class="col-sm-9 col-sm-offset-3">
 								<input id="claimerAssociation" class="select2" data-placeholder="<%= lang.placeholder.selectAnAssociation %>" />
-								<span class="help-block"><%= lang.errroMessage.selectAnAssociation %></span>
+								<span class="help-block"><%= lang.errorMessage.selectAnAssociation %></span>
 							</div>
 						</div>
 						</div>
@@ -63,7 +63,7 @@
 							<label for="citizenName" class="control-label col-sm-3"><%= lang.label.nameFirstname %> :</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="citizenName" placeholder="<%= lang.placeholder.nameFirstname %>">
-								<span class="help-block"><%= lang.errroMessage.fillName %></span>
+								<span class="help-block"><%= lang.errorMessage.fillName %></span>
 							</div>
 						</div>
 
@@ -72,7 +72,7 @@
 							<label for="citizenMail" class="col-sm-3 control-label"><%= lang.label.email %> :</label>
 							<div class="col-sm-9">
 								<input type="email" class="form-control" id="citizenMail" placeholder="<%= lang.placeholder.email %>">
-								<span class="help-block"><%= lang.errroMessage.fillMail %></span>
+								<span class="help-block"><%= lang.errorMessage.fillMail %></span>
 							</div>
 						</div>
 
@@ -81,7 +81,7 @@
 							<label for="citizenPhone" class="col-xs-12 col-sm-3 control-label"><%= lang.label.phone %> :</label>
 							<div class="col-xs-6 col-sm-3">
 								<input type="tel" class="form-control" id="citizenPhone" placeholder="<%= lang.placeholder.phone %>">
-								<span class="help-block"><%= lang.errroMessage.fillPhone %></span>
+								<span class="help-block"><%= lang.errorMessage.fillPhone %></span>
 							</div>
 						</div>
 
@@ -91,7 +91,7 @@
 							<label for="citizenAddress" class="col-sm-3 control-label"><%= lang.label.address %> :</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="citizenAddress" placeholder="<%= lang.placeholder.address %>">
-								<span class="help-block"><%= lang.errroMessage.fillAddress %></span>
+								<span class="help-block"><%= lang.errorMessage.fillAddress %></span>
 							</div>
 						</div>
 
@@ -103,7 +103,7 @@
 									<label for="citizenZipCode" class="col-sm-12 control-label text-left"><%= lang.label.zipCode %> :</label>
 									<div class="col-xs-6 col-sm-12">
 										<input type="text" class="form-control" id="citizenZipCode" placeholder="<%= lang.placeholder.zipCode %>">
-										<span class="help-block"><%= lang.errroMessage.fillZipCode %></span>
+										<span class="help-block"><%= lang.errorMessage.fillZipCode %></span>
 									</div>
 								</div>
 							</div>
@@ -113,7 +113,7 @@
 									<label for="citizenCity" class="col-sm-12 control-label text-left"><%= lang.label.city %> :</label>
 									<div class="col-xs-12 col-sm-12">
 										<input type="text" class="form-control" id="citizenCity" placeholder="<%= lang.placeholder.city %>">
-										<span class="help-block"><%= lang.errroMessage.fillCity %></span>
+										<span class="help-block"><%= lang.errorMessage.fillCity %></span>
 									</div>
 							    </div>
 							</div>
@@ -138,7 +138,7 @@
 							<label for="bookingName" class="col-sm-3 control-label"><%= lang.label.bookingName %> :</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="bookingName" placeholder="<%= lang.placeholder.bookingName %>">
-								<span class="help-block"><%= lang.errroMessage.fillBookingName %></span>
+								<span class="help-block"><%= lang.errorMessage.fillBookingName %></span>
 							</div>
 						</div>
 
@@ -149,7 +149,7 @@
 
 							<div class="col-sm-9">
 								<input id="bookingPlace" class="select2" data-placeholder="<%= lang.placeholder.selectAPlace %>" />
-								<span class="help-block"><%= lang.errroMessage.fillBookingPlace %></span>
+								<span class="help-block"><%= lang.errorMessage.fillBookingPlace %></span>
 							</div>
 						</div>
 
@@ -164,7 +164,7 @@
 									<input type="text" id="bookingStartDate" class="form-control datepicker" placeholder="<%= lang.placeholder.checkDate %>" value="<%= moment.format('DD/MM/YYYY') %>" data-date-start-date="<%= moment.format('DD/MM/YYYY') %>">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 								</div>
-								<span class="help-block"><%= lang.errroMessage.fillBookingDate %></span>
+								<span class="help-block"><%= lang.errorMessage.fillBookingDate %></span>
 							</div>
 
 							<!-- CheckIn Hour -->
@@ -187,7 +187,7 @@
 									<input type="text" id="bookingEndDate" class="form-control datepicker" placeholder="<%= lang.placeholder.checkDate %>" value="<%= moment.format('DD/MM/YYYY') %>" data-date-start-date="<%= moment.format('DD/MM/YYYY') %>">
 									<span class="input-group-addon date"><i class="fa fa-calendar"></i></span>
 								</div>
-								<span class="help-block"><%= lang.errroMessage.fillBookingDate %></span>
+								<span class="help-block"><%= lang.errorMessage.fillBookingDate %></span>
 							</div>
 
 							<!-- CheckIn Hour -->
@@ -212,9 +212,8 @@
 					<legend><%= lang.title.summaryBooking %></legend>
 
 
-						<div id="saveMessage" class="alert alert-success hide-soft">
-  							<strong><i class="fa fa-check fa-lg fa-2x"></i></strong> <%= lang.infoMessage.validSendBooking %>
-						</div>
+						<!-- Submit Message -->
+						<div id="submitMessage" class="alert hide-soft"></div>
 
 							
 						<div id="bookingSummary" class="col-sm-offset-1"></div>

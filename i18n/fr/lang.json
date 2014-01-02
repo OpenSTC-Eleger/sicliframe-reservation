@@ -38,7 +38,7 @@
 		"aboutTheBooking"   : "Merci de noter que votre demande sera prise en compte sous réserve des disponibilités."
 	},
 
-	"errroMessage" : {
+	"errorMessage" : {
 		"selectAnAssociation"  : "Merci de sélectionner votre organisation",
 		"fillName"             : "Renseigner votre nom",
 		"fillMail"             : "Renseigner votre adresse email",
@@ -48,7 +48,8 @@
 		"fillCity"             : "Renseigner votre ville",
 		"fillBookingName"      : "Renseigner le nom de l'événement",
 		"fillBookingPlace"     : "Merci sélectionner votre salle",
-		"fillBookingDate"      : "La date n'est pas correct"
+		"fillBookingDate"      : "La date n'est pas correct",
+		"errorSendBooking"     : "Une erreur est survenue lors de l'enregistrement de votre demande"
 	},
 
 
