@@ -25,7 +25,10 @@
 		"phone"             : "Téléphone",
 		"wantedPlace"       : "Salle souhaitée",
 		"from"              : "Du",
-		"to"                : "Au"
+		"to"                : "Au",
+		"address"           : "Adresse postale",
+		"zipCode"           : "Code postal",
+		"city"              : "Ville"
 	},
 
 
@@ -40,6 +43,9 @@
 		"fillName"             : "Renseigner votre nom",
 		"fillMail"             : "Renseigner votre adresse email",
 		"fillPhone"            : "Renseigner votre numéro de téléphone",
+		"fillAddress"          : "Renseigner votre adresse",
+		"fillZipCode"          : "Renseigner votre code postal",
+		"fillCity"             : "Renseigner votre ville",
 		"fillBookingName"      : "Renseigner le nom de l'événement",
 		"fillBookingPlace"     : "Merci sélectionner votre salle",
 		"fillBookingDate"      : "La date n'est pas correct"
@@ -50,6 +56,9 @@
 		"bookingName"         : "Ex: Concours de belotte, Mariage...",
 		"nameFirstname"       : "Ex: Julie Gautier",
 		"email"               : "Ex: julie.gautier@mail.fr",
+		"address"             : "Ex: 25 avenue du Général de Gaulle",
+		"zipCode"             : "Ex: 44000",
+		"city"                : "Ex: Nantes",
 		"selectAnAssociation" : "Sélectionnez votre association",
 		"selectAPlace"        : "Sélectionnez une salle",
 		"checkDate"           : "__/__/____",

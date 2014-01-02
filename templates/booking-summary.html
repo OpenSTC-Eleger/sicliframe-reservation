@@ -4,19 +4,20 @@
 	<dd id="sumClaimer"><%= booking.getClaimer() %></dd>
 
 	<% if(booking.isCitizen()){ %>
-		<dd id="sumClaimer"><i class="fa fa-envelope-o fa-fw"></i> <%= booking.getPeopleMail() %></dd>
-		<dd id="sumClaimer"><i class="fa fa-phone fa-fw"></i> <%= booking.getPeoplePhone() %></dd>
+		<dd><small><i class="fa fa-envelope-o fa-fw"></i> <%= booking.getPeopleMail() %></small></dd>
+		<dd><small><i class="fa fa-phone fa-fw"></i> <%= booking.getPeoplePhone() %></small></dd>
+		<dd><small><i class="fa fa-map-marker fa-fw"></i> <%= booking.getPeopleAddress() %> - <%= booking.getPeopleZipCode() %>  <%= booking.getPeopleCity() %></small></dd>
 	<% } %>
 
 	<!-- Booking Name -->
 	<dt><i class="fa fa-tag fa-fw fa-lg text-muted"></i></dt>
-	<dd id="sumBookingName"><%= booking.getName() %></dd>
+	<dd><%= booking.getName() %></dd>
 
 	<!-- Booking Place -->
 	<dt><i class="fa fa-map-marker fa-fw fa-lg text-muted"></i></dt>
-	<dd id="sumBookingPlace"><%= bookingLines.name %></dd>
+	<dd><%= bookingLines.name %></dd>
 
 	<!-- Booking Date -->
 	<dt><i class="fa fa-calendar fa-fw fa-lg text-muted"></i></dt>
-	<dd id="sumBookingDate"><strong><%= lang.dateFrom %></strong> <%= booking.getStartDate() %> <strong> <%= lang.dateTo %> </strong><%= booking.getEndDate() %></dd>
+	<dd><strong><%= lang.dateFrom %></strong> <%= booking.getStartDate() %> <strong> <%= lang.dateTo %> </strong><%= booking.getEndDate() %></dd>
 </dl>

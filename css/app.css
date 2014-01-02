@@ -139,6 +139,9 @@ dl.lead dd{
 	margin-bottom: 10px;
 }
 
+.control-label.text-left{
+	text-align: left !important;
+}
 
 
 /* Form

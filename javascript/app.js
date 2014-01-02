@@ -71,6 +71,7 @@ define('app', [
 
 			$('#citizenPhone').mask("09 99 99 99 99");
 			$('*[data-toggle="tooltip"]').tooltip({container : 'body'});
+			$('#citizenZipCode').mask("44999");
 
 			
 			// Claimer type change //
@@ -124,6 +125,8 @@ define('app', [
 				self.submitForm();
 			});
 
+			
+			// Set the focus to the first Input //
 			$('#wizard li a').on('shown.bs.tab', function (e) {
 
   				var id = $(e.target).attr('href');
@@ -258,17 +261,19 @@ define('app', [
 		/** Check step 0
 		*/
 		checkStep0: function(){
-			var isCitizen    = $('#isCitizen').prop('checked');
-			var citizenName  = $('#citizenName').val();
-			var citizenMail  = $('#citizenMail').val();
-			var citizenPhone = $('#citizenPhone').val();
+			var isCitizen      = $('#isCitizen').prop('checked');
+			var citizenName    = $('#citizenName').val();
+			var citizenMail    = $('#citizenMail').val();
+			var citizenPhone   = $('#citizenPhone').val();
+			var citizenAddress = $('#citizenAddress').val();
+			var citizenZipCode = $('#citizenZipCode').val();
+			var citizenCity    = $('#citizenCity').val();
 
 			var returnStatement = true;
 
 			if(isCitizen){
 				if(_.isEmpty(citizenName)){
-					$('#form-citizenName').addClass('has-error');
-					returnStatement = false;
+					$('#form-citizenName').addClass('has-error'); returnStatement = false;
 				}
 				else{
 					$('#form-citizenName').removeClass('has-error');
@@ -276,8 +281,7 @@ define('app', [
 				}
 
 				if(_.isEmpty(citizenMail) || !Helper.checkMail(citizenMail)){
-					$('#form-citizenMail').addClass('has-error');
-					returnStatement = false;
+					$('#form-citizenMail').addClass('has-error'); returnStatement = false;
 				}
 				else{
 					$('#form-citizenMail').removeClass('has-error');
@@ -285,12 +289,35 @@ define('app', [
 				}
 
 				if(_.isEmpty(citizenPhone)){
-					$('#form-citizenPhone').addClass('has-error');
-					returnStatement = false;
+					$('#form-citizenPhone').addClass('has-error'); returnStatement = false;
 				}
 				else{
 					$('#form-citizenPhone').removeClass('has-error');
 					this.bookingsModel.setCitizenPhone(citizenPhone);
+				}
+
+				if(_.isEmpty(citizenAddress)){
+					$('#form-citizenAddress').addClass('has-error'); returnStatement = false;
+				}
+				else{
+					$('#form-citizenAddress').removeClass('has-error');
+					this.bookingsModel.setCitizenAddress(citizenAddress);
+				}
+
+				if(_.isEmpty(citizenZipCode)){
+					$('#form-citizenZipCode').addClass('has-error'); returnStatement = false;
+				}
+				else{
+					$('#form-citizenZipCode').removeClass('has-error');
+					this.bookingsModel.setCitizenZipCode(citizenZipCode);
+				}
+
+				if(_.isEmpty(citizenCity)){
+					$('#form-citizenCity').addClass('has-error'); returnStatement = false;
+				}
+				else{
+					$('#form-citizenCity').removeClass('has-error');
+					this.bookingsModel.setCitizenCity(citizenCity);
 				}
 			}
 			else{
@@ -396,10 +423,13 @@ define('app', [
 			}
 
 			if(this.bookingsModel.isCitizen()){
-				obj.is_citizen   = true;
-				obj.people_name  = this.bookingsModel.getClaimer();
-				obj.people_email = this.bookingsModel.getPeopleMail();
-				obj.people_phone = this.bookingsModel.getPeoplePhone();
+				obj.is_citizen    = true;
+				obj.people_name   = this.bookingsModel.getClaimer();
+				obj.partner_mail = this.bookingsModel.getPeopleMail();
+				obj.people_phone  = this.bookingsModel.getPeoplePhone();
+				obj.people_street = this.bookingsModel.getPeopleAddress();
+				obj.people_zip    = this.bookingsModel.getPeopleZipCode();
+				obj.people_city   = this.bookingsModel.getPeopleCity();
 			}
 
 			$('button[type="submit"]').button('loading');

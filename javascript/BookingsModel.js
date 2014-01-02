@@ -12,7 +12,7 @@ define([
 
 	var BookingsModel = function(){
 
-		this.fields = ['name', 'checkin', 'checkout', 'partner_id', 'people_name', 'people_email', 'people_phone', 'is_citizen', 'resources'];
+		this.fields = ['name', 'checkin', 'checkout', 'partner_id', 'people_name', 'partner_mail', 'people_phone', 'is_citizen', 'people_street','people_city', 'people_zip'];
 
 
 		/** Get Name
@@ -38,14 +38,23 @@ define([
 			}
 		};
 		this.getPeopleMail = function(){
-			return this.people_email;
-		}
+			return this.partner_mail;
+		};
 		this.getPeoplePhone = function(){
 			return this.people_phone;
+		};
+		this.getPeopleAddress = function(){
+			return this.people_street;
+		};
+		this.getPeopleZipCode = function(){
+			return this.people_zip;
+		};
+		this.getPeopleCity = function(){
+			return this.people_city;
 		}
 		this.isCitizen = function(){
 			return this.is_citizen;
-		}
+		};
 
 
 		// Partner //
@@ -67,11 +76,23 @@ define([
 		};
 		// Citizen Mail //
 		this.setCitizenMail = function(param){
-			this.people_email = param;
+			this.partner_mail = param;
 		};
 		// Citizen Phone //
 		this.setCitizenPhone = function(param){
 			this.people_phone = param;
+		};
+		// Citizen Address //
+		this.setCitizenAddress = function(param){
+			this.people_street = str.titleize(param);
+		};
+		// Citizen Zip Code //
+		this.setCitizenZipCode = function(param){
+			this.people_zip = param;
+		};
+		// Citizen City //
+		this.setCitizenCity = function(param){
+			this.people_city = str.titleize(param);
 		};
 
 		// Booking Name //

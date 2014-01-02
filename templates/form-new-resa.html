@@ -78,12 +78,47 @@
 
 						<!-- Citizen Phone -->
 						<div class="form-group" id="form-citizenPhone">
-							<label for="citizenPhone" class="col-sm-3 control-label"><%= lang.label.phone %> :</label>
-							<div class="col-sm-9">
+							<label for="citizenPhone" class="col-xs-12 col-sm-3 control-label"><%= lang.label.phone %> :</label>
+							<div class="col-xs-6 col-sm-3">
 								<input type="tel" class="form-control" id="citizenPhone" placeholder="<%= lang.placeholder.phone %>">
 								<span class="help-block"><%= lang.errroMessage.fillPhone %></span>
 							</div>
 						</div>
+
+
+						<!-- Citizen Street -->
+						<div class="form-group" id="form-citizenAddress">
+							<label for="citizenAddress" class="col-sm-3 control-label"><%= lang.label.address %> :</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="citizenAddress" placeholder="<%= lang.placeholder.address %>">
+								<span class="help-block"><%= lang.errroMessage.fillAddress %></span>
+							</div>
+						</div>
+
+
+						<!-- Citizen Zip Code & City -->
+						<div class="row">
+							<div class="col-sm-3 col-sm-offset-3">
+								<div class="form-group" id="form-citizenZipCode">
+									<label for="citizenZipCode" class="col-sm-12 control-label text-left"><%= lang.label.zipCode %> :</label>
+									<div class="col-xs-6 col-sm-12">
+										<input type="text" class="form-control" id="citizenZipCode" placeholder="<%= lang.placeholder.zipCode %>">
+										<span class="help-block"><%= lang.errroMessage.fillZipCode %></span>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-6">
+								<div class="form-group" id="form-citizenCity">
+									<label for="citizenCity" class="col-sm-12 control-label text-left"><%= lang.label.city %> :</label>
+									<div class="col-xs-12 col-sm-12">
+										<input type="text" class="form-control" id="citizenCity" placeholder="<%= lang.placeholder.city %>">
+										<span class="help-block"><%= lang.errroMessage.fillCity %></span>
+									</div>
+							    </div>
+							</div>
+						</div>
+
 						</div>
 
 					</fieldset>
@@ -117,7 +152,7 @@
 								<span class="help-block"><%= lang.errroMessage.fillBookingPlace %></span>
 							</div>
 						</div>
-					
+
 
 						<!-- Booking checkIn -->
 						<div class="form-group" id="form-bookingStartDate">
