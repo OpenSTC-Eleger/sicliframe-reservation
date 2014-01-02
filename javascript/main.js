@@ -19,12 +19,13 @@ define('main', [
 
 
 			// Retrieve configuration and lang files //
-			$.when($.getJSON(app.configPath), $.getJSON(app.langPath))
-			.done(function (config_data, lang_data) {
+			$.when($.getJSON(app.configPath), $.getJSON(app.langPath), $.getJSON(app.propertiesPath))
+			.done(function (config_data, lang_data, prop_data) {
 
 				// Set the global variables //
-				app.config = config_data[0];
-				app.lang   = lang_data[0];
+				app.config     = config_data[0];
+				app.lang       = lang_data[0];
+				app.properties = prop_data[0];
 
 
 				// Set the Ajax setup //

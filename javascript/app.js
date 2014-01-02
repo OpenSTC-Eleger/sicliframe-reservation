@@ -21,10 +21,12 @@ define('app', [
 
 		configPath       : 'config/configuration.json',
 		langPath         : 'i18n/'+window.navigator.language+'/lang.json',
+		propertiesPath   : 'properties.json',
 
 		// Global Variable //
 		config           : {},
 		lang             : {},
+		properties       : {},
 
 		appContainer        : $('#container'),
 		bookingSumContainer : '#bookingSummary',
@@ -45,8 +47,9 @@ define('app', [
 
 			// Retrieve the template // 
 			var tmp = _.template(formTemplate, {
-				lang    : app.lang,
-				moment  : moment()
+				lang       : app.lang,
+				moment     : moment(),
+				properties : app.properties
 			});
 
 			this.appContainer.html(tmp);
@@ -135,7 +138,7 @@ define('app', [
 		},
 
 
-		
+
 		/** When the claimer type change
 		*/
 		changeClaimerType: function(e){
