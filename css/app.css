@@ -135,6 +135,14 @@ dl.lead dd{
 .dl-condensed dd{
 	margin-left: 40px;
 }
+
+@media (max-width: 768px){
+	.dl-condensed dt{
+		float: left;
+		margin-left: 5px;
+	}
+}
+
 .panel-default{
 	margin-bottom: 10px;
 }
@@ -142,6 +150,8 @@ dl.lead dd{
 .control-label.text-left{
 	text-align: left !important;
 }
+
+
 
 
 /* Form
