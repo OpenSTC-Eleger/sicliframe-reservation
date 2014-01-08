@@ -15,8 +15,6 @@ define('main', [
 		/** Application initialization
 		*/
 		init: function() {
-			var self = this;
-
 
 			// Retrieve configuration and lang files //
 			$.when($.getJSON(app.configPath), $.getJSON(app.langPath), $.getJSON(app.propertiesPath))
@@ -37,12 +35,12 @@ define('main', [
 				app.formView();
 			})
 			.fail(function(e){
-				throw new Error('Unable to init the app');
+				throw new Error('Unable to init the app' + e);
 			});
  
 		},
 
-	}
+	};
 
 	return main;
 });

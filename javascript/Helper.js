@@ -24,7 +24,7 @@ define('helper', [
 		setAjaxSetUp: function(token){
 
 			$.ajaxSetup({
-				contentType: "application/json",
+				contentType: 'application/json',
 				headers: {Authorization: 'Token token=' + token},
 				statusCode: {
 					401: function() {
@@ -49,6 +49,6 @@ define('helper', [
 
 	};
 
-return helper;
+	return helper;
 
 });

@@ -6,16 +6,30 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- JavaScript -->
+
+		<!--(if target dev)><! -->
 		<script data-main="javascript/startup" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.9/require.min.js"></script>
+		<!--<!(endif)-->
+
+		<!--(if target dist)>
+		<script data-main="js/app" src="js/require.js"></script>		
+		<!(endif)-->
+
+
 
 		<!-- Styles -->
+		<!--(if target dev)><! -->
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
 		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
-		<link href="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2.css" rel="stylesheet">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css" rel="stylesheet">
 		<link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">
-		<link href="css/libs/timepicker-min.css" rel="stylesheet">
+		<link href="style/libs/timepicker-min.css" rel="stylesheet">
+		<link href="style/app.css" rel="stylesheet">
+		<!--<!(endif)-->
 
-		<link href="css/app.css" rel="stylesheet">
+		<!--(if target dist)>
+		<link href="style/app.css" rel="stylesheet">
+		<!(endif)-->
   	</head>
 
   <body>
@@ -23,4 +37,5 @@
 	<div id="container" class="container"></div>
 
 	</body>
+
 </html>

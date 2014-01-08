@@ -5,7 +5,7 @@ define([
 
 	'jquery', 'underscore', 'underscore.string', 'helper', 'select2-lang'
 
-], function($, _, _str, Helper, select2){
+], function($, _, _str, Helper){
 
 	'use strict';
 
@@ -27,16 +27,19 @@ define([
 			var self = this;
 
 			// Retrieve placeholder attribute //
-			if(!_.isUndefined(this.selectbox.data('placeholder'))){ var placeholder = this.selectbox.data('placeholder'); }
-			else{ var placeholder = ''; }
+			var placeholder;
+			if(!_.isUndefined(this.selectbox.data('placeholder'))){ placeholder = this.selectbox.data('placeholder'); }
+			else{ placeholder = ''; }
 
 			// Retrieve minimum-input-length attribute //
-			if(!_.isUndefined(this.selectbox.data('minimum-input-length'))){ var minimumInputLength = this.selectbox.data('minimum-input-length'); }
-			else{ var minimumInputLength = 0; }
+			var minimumInputLength;
+			if(!_.isUndefined(this.selectbox.data('minimum-input-length'))){ minimumInputLength = this.selectbox.data('minimum-input-length'); }
+			else{ minimumInputLength = 0; }
 
 			// Retrieve multiple attribute //
-			if(!_.isUndefined(this.selectbox.data('multiple'))){ var multiple = this.selectbox.data('multiple'); }
-			else{ var multiple = false; }
+			var multiple;
+			if(!_.isUndefined(this.selectbox.data('multiple'))){ multiple = this.selectbox.data('multiple'); }
+			else{ multiple = false; }
 
 
 			var fields = ['id', 'name'];
@@ -61,9 +64,9 @@ define([
 
 					// Set all the search params in the params for the query //
 					if(!_.isEmpty(self.searchParams)){
-						_.each(self.searchParams, function(query, index){
+						_.each(self.searchParams, function(query){
 							params.push(query);
-						})
+						});
 					}
 					// / SEARCH PARAMS //
 
@@ -79,7 +82,7 @@ define([
 
 							var returnData = {results: []};
 
-							_.each(data, function(item, index){
+							_.each(data, function(item){
 
 								returnData.results.push({
 									id   : item.id,
@@ -88,16 +91,18 @@ define([
 							});
 
 							// Return the query //
-							query.callback(returnData)
+							query.callback(returnData);
 						});
 
 				},
 				sortResults: function(results, container, query) {
+					var sortResults;
+
 					// If no term was enter, results are Alphabetic //
 					if(_.isEmpty(query.term)){
-						var sortResults = _.sortBy(results, function(result){ 
+						sortResults = _.sortBy(results, function(result){ 
 							return result.text;
-						})
+						});
 					}
 					// Display results begin with the term enter and after the rest of the result //
 					else{
@@ -110,9 +115,9 @@ define([
 							}else{
 								otherResults.push(result);
 							}
-						})
+						});
 
-						var sortResults = _.union(beginWithResults, otherResults);
+						sortResults = _.union(beginWithResults, otherResults);
 					}
 
 					return sortResults;
@@ -145,7 +150,7 @@ define([
 			_.each(items, function(item){
 				var itemData = {id: item.id, text: item.name};
 				data.push(itemData);
-			})
+			});
 
 			this.selectbox.select2('data', data);
 		};
@@ -156,12 +161,12 @@ define([
 		*/
 		this.getSelectedItem = function(){
 
+			var returnId = '';
+
 			if(!_.isNull(this.selectbox.select2('data'))){
-				var returnId = this.selectbox.select2('data').id;
+				returnId = this.selectbox.select2('data').id;
 			}
-			else{
-				var returnId = '';
-			}
+
 			return returnId;
 		};
 		
@@ -171,12 +176,12 @@ define([
 		*/
 		this.getSelectedText = function(){
 
+			var name = '';
+
 			if(!_.isNull(this.selectbox.select2('data'))){
-				var name = this.selectbox.select2('data').text;
+				name = this.selectbox.select2('data').text;
 			}
-			else{
-				var name = '';
-			}
+
 			return name;
 		};
 
@@ -191,7 +196,7 @@ define([
 				
 				_.each(this.selectbox.select2('data'), function(item){
 					returnIds.push(item.id);
-				})
+				});
 			}
 
 			return returnIds;
@@ -227,6 +232,6 @@ define([
 
 	};
 
-return AdvancedSelectBox;
+	return AdvancedSelectBox;
 
 });

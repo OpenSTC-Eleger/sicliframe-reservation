@@ -9,7 +9,7 @@ requirejs.config({
 		/* #############
 		* Libs
 		*/
-		'text'               : '//cdnjs.cloudflare.com/ajax/libs/require-text/2.0.10/text.min',
+		'text'               : ['//cdnjs.cloudflare.com/ajax/libs/require-text/2.0.10/text.min', 'libs/require-text.2.0.10.min'],
 
 		'jquery'             : ['//code.jquery.com/jquery-2.0.3.min', 'libs/jquery-2.0.3.min'],
 		'bootstrap'          : ['//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min', 'libs/bootstrap.3.0.3.min'],
@@ -76,13 +76,11 @@ requirejs.config({
 });
 
 
-
-/******************************************
-* Start The App
-*/
 require([
 	'main',
 ], function(main){
+
+	'use strict';
 
 	main.init();
 });

@@ -51,7 +51,7 @@ define([
 		};
 		this.getPeopleCity = function(){
 			return this.people_city;
-		}
+		};
 		this.isCitizen = function(){
 			return this.is_citizen;
 		};
@@ -106,12 +106,10 @@ define([
 		// Booking End Date //
 		this.setEndDate = function(date){
 			this.checkout = date.format('YYYY-MM-DD HH:mm:ss');
-		}
-
-
+		};
 
 	};
 
-return BookingsModel;
+	return BookingsModel;
 
 });

@@ -7,7 +7,7 @@ define('app', [
 	'jquery', 'bootstrap', 'underscore', 'helper', 'bookingsModel', 'moment', 'datepicker-lang', 'timepicker', 'advanceSelectBox', 'jquery.maskedinput',
 	'text!form-new-resa', 'text!booking-summary'
 
-], function($, bs, _, Helper, BookingsModel, moment, datepicker, timepicker, advanceSelectBox, mask, formTemplate, bookingSummaryTemplate){
+], function($, bs, _, Helper, BookingsModel, moment, datepicker, timepicker, AdvanceSelectBox, mask, formTemplate, bookingSummaryTemplate){
 
 	'use strict';
 
@@ -55,26 +55,26 @@ define('app', [
 			this.appContainer.html(tmp);
 
 
-			app.selectListClaimerAssociation = new advanceSelectBox({selectbox: $('#claimerAssociation'), url: app.config.server_api_url+this.api_url_partner});
+			app.selectListClaimerAssociation = new AdvanceSelectBox({selectbox: $('#claimerAssociation'), url: app.config.server_api_url+this.api_url_partner});
 			app.selectListClaimerAssociation.render();
 
 			// Filter on all the ASSO //
-			var searchParam = { field : 'type_id.code', operator : 'ilike', value : 'ASSO' };
-			app.selectListClaimerAssociation.setSearchParam(searchParam , true);
+			var selectListClaimerAssociationParams = { field : 'type_id.code', operator : 'ilike', value : 'ASSO' };
+			app.selectListClaimerAssociation.setSearchParam(selectListClaimerAssociationParams , true);
 
 
-			app.selectListBookingPlace = new advanceSelectBox({selectbox: $('#bookingPlace'), url: app.config.server_api_url});
+			app.selectListBookingPlace = new AdvanceSelectBox({selectbox: $('#bookingPlace'), url: app.config.server_api_url});
 			app.selectListBookingPlace.render();
-			var searchParam = { field : 'type_prod', operator : 'ilike', value : 'site' };
-			app.selectListBookingPlace.setSearchParam(searchParam , true);
+			var selectListBookingPlaceParams = { field : 'type_prod', operator : 'ilike', value : 'site' };
+			app.selectListBookingPlace.setSearchParam(selectListBookingPlaceParams , true);
 
 
 			$('.datepicker').datepicker({ format: 'dd/mm/yyyy',	weekStart: 1, autoclose: true, language: 'fr', todayHighlight: true });
 			$('.timepicker').timepicker({defaultTime: false, showMeridian: false, showInputs: false, showWidgetOnAddonClick: false});
 
-			$('#citizenPhone').mask("09 99 99 99 99");
+			$('#citizenPhone').mask('09 99 99 99 99');
 			$('*[data-toggle="tooltip"]').tooltip({container : 'body'});
-			$('#citizenZipCode').mask("44999");
+			$('#citizenZipCode').mask('44999');
 
 			
 			// Claimer type change //
@@ -90,7 +90,7 @@ define('app', [
 			});
 
 			// Start Hour change //
-			$('#bookingStartHour').timepicker().on('changeTime.timepicker', function(e){
+			$('#bookingStartHour').timepicker().on('changeTime.timepicker', function(){
 				$('#bookingEndHour').timepicker('setTime', moment($('#bookingStartHour').val(), 'HH:mm').add('hours', 3).format('HH:00'));
 			});
 
@@ -116,13 +116,13 @@ define('app', [
 			});
 
 			// Previous button is click //
-			$('li.previous a').click(function(e){
+			$('li.previous a').click(function(){
 				self.previousStep();
 			});
 
 
 			// Next button is click //
-			$('li.next a').click(function(e){
+			$('li.next a').click(function(){
 				self.nextStep();
 			});
 
@@ -137,16 +137,16 @@ define('app', [
 			// Set the focus to the first Input //
 			$('#wizard li a').on('shown.bs.tab', function (e) {
 
-  				var id = $(e.target).attr('href');
-  				$(id + ' .form-group .form-control').first().focus();
-			})
+				var id = $(e.target).attr('href');
+				$(id + ' .form-group .form-control').first().focus();
+			});
 		},
 
 
 
 		/** When the claimer type change
 		*/
-		changeClaimerType: function(e){
+		changeClaimerType: function(){
 			var self = this;
 
 			// Reset the booking Select Place //
@@ -182,7 +182,7 @@ define('app', [
 
 		/** Previous Step
 		*/
-		previousStep: function(e){
+		previousStep: function(){
 
 			if(this.currentStep == this.maxStep){
 				$('button[type="submit"]').addClass('hide');	
@@ -197,7 +197,7 @@ define('app', [
 
 				$('li.next a').removeClass('hide');
 
-				if(this.currentStep == 0){
+				if(this.currentStep === 0){
 					$('li.previous a').addClass('hide');
 				}
 			}
@@ -207,7 +207,7 @@ define('app', [
 
 		/** Next step
 		*/
-		nextStep: function(e){
+		nextStep: function(){
 
 			// Check the form of the current step //
 			if(this.checkStep(this.currentStep)){
@@ -249,7 +249,7 @@ define('app', [
 						app.appContainer.find('#bookingName').focus();
 						return false;
 					}
-				break;
+					break;
 				case 1:
 					if(this.checkStep1()){
 						$('#step1 .form-group.has-error').removeClass('has-error');
@@ -262,7 +262,7 @@ define('app', [
 						$('#step1 .form-group.has-error input').first().focus();
 						return false;
 					}
-				break;
+					break;
 			}
 		},
 
@@ -283,7 +283,8 @@ define('app', [
 
 			if(isCitizen){
 				if(_.isEmpty(citizenName)){
-					$('#form-citizenName').addClass('has-error'); returnStatement = false;
+					$('#form-citizenName').addClass('has-error'); 
+					returnStatement = false;
 				}
 				else{
 					$('#form-citizenName').removeClass('has-error');
@@ -291,7 +292,8 @@ define('app', [
 				}
 
 				if(_.isEmpty(citizenMail) || !Helper.checkMail(citizenMail)){
-					$('#form-citizenMail').addClass('has-error'); returnStatement = false;
+					$('#form-citizenMail').addClass('has-error');
+					returnStatement = false;
 				}
 				else{
 					$('#form-citizenMail').removeClass('has-error');
@@ -299,7 +301,8 @@ define('app', [
 				}
 
 				if(_.isEmpty(citizenPhone)){
-					$('#form-citizenPhone').addClass('has-error'); returnStatement = false;
+					$('#form-citizenPhone').addClass('has-error');
+					returnStatement = false;
 				}
 				else{
 					$('#form-citizenPhone').removeClass('has-error');
@@ -307,7 +310,8 @@ define('app', [
 				}
 
 				if(_.isEmpty(citizenAddress)){
-					$('#form-citizenAddress').addClass('has-error'); returnStatement = false;
+					$('#form-citizenAddress').addClass('has-error');
+					returnStatement = false;
 				}
 				else{
 					$('#form-citizenAddress').removeClass('has-error');
@@ -315,7 +319,8 @@ define('app', [
 				}
 
 				if(_.isEmpty(citizenZipCode)){
-					$('#form-citizenZipCode').addClass('has-error'); returnStatement = false;
+					$('#form-citizenZipCode').addClass('has-error');
+					returnStatement = false;
 				}
 				else{
 					$('#form-citizenZipCode').removeClass('has-error');
@@ -323,7 +328,8 @@ define('app', [
 				}
 
 				if(_.isEmpty(citizenCity)){
-					$('#form-citizenCity').addClass('has-error'); returnStatement = false;
+					$('#form-citizenCity').addClass('has-error');
+					returnStatement = false;
 				}
 				else{
 					$('#form-citizenCity').removeClass('has-error');
@@ -331,7 +337,7 @@ define('app', [
 				}
 			}
 			else{
-				if(app.selectListClaimerAssociation.getSelectedItem() == ''){
+				if(app.selectListClaimerAssociation.getSelectedItem() === ''){
 					$('#form-claimerAssociation').addClass('has-error');
 					returnStatement = false;
 				}
@@ -350,9 +356,9 @@ define('app', [
 		*/
 		checkStep1: function(){
 			var bookingName      = $('#bookingName').val();
-			var bookingStartDate = $('#bookingStartDate').val()
+			var bookingStartDate = $('#bookingStartDate').val();
 			var bookingStartHour = $('#bookingStartHour').val();
-			var bookingEndDate   = $('#bookingEndDate').val()
+			var bookingEndDate   = $('#bookingEndDate').val();
 			var bookingEndHour   = $('#bookingEndHour').val();
 
 			var mStartDate = moment(bookingStartDate+' '+bookingStartHour, 'DD/MM/YYYY HH:mm');
@@ -371,7 +377,7 @@ define('app', [
 			}
 
 			// Booking Place //
-			if(app.selectListBookingPlace.getSelectedItem() == ''){
+			if(app.selectListBookingPlace.getSelectedItem() === ''){
 				$('#form-bookingPlace').addClass('has-error');
 				returnStatement = false;
 			}
@@ -411,7 +417,7 @@ define('app', [
 		*/
 		displaySummary: function(){
 
-			var tmp = _.template(bookingSummaryTemplate, { booking : this.bookingsModel, lang : app.lang, bookingLines: app.bookingLines })
+			var tmp = _.template(bookingSummaryTemplate, { booking : this.bookingsModel, lang : app.lang, bookingLines: app.bookingLines });
 
 			this.appContainer.find(app.bookingSumContainer).html(tmp);
 		},
@@ -421,7 +427,6 @@ define('app', [
 		/** Display the Summary
 		*/
 		submitForm : function(){
-			var self = this;
 
 			var obj = {
 				name               : this.bookingsModel.getName(),
@@ -429,7 +434,7 @@ define('app', [
 				checkout           : moment(this.bookingsModel.checkout).utc().format('YYYY-MM-DD HH:mm:ss'),
 				partner_id         : this.bookingsModel.partner_id,
 				reservation_line   : [[0, 0, {reserve_product : app.bookingLines.line_id }]]
-			}
+			};
 
 			if(this.bookingsModel.isCitizen()){
 				obj.is_citizen    = true;
@@ -447,7 +452,7 @@ define('app', [
 				method: 'POST',
 				dataType: 'json',
 				data  : JSON.stringify(obj)
-			})
+			});
 
 			rest.done(function(){
 				var message = '<strong><i class="fa fa-check fa-lg fa-2x"></i></strong> '+ app.lang.infoMessage.validSendBooking;
@@ -462,7 +467,7 @@ define('app', [
 			})
 			.always(function(){
 				$('button[type="submit"]').button('reset');
-			})
+			});
 
 
 
@@ -483,13 +488,13 @@ define('app', [
 					fields  : ['id'],
 					filters : Helper.objectifyFilters(params)
 				}
-			})
+			});
 
 		}
 
 
 	};
 
-return app;
+	return app;
 
 });
