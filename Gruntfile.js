@@ -32,6 +32,14 @@ module.exports = function(grunt) {
 		},
 
 
+		// Check JSON File
+		jsonlint: {
+			dist: {
+				src: ['properties.json', 'config/*.json', 'i18n/**/*.json']
+			}
+		},
+
+
 		// Check JS Files //
 		jshint: {
 			options: {
@@ -217,9 +225,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-htmlmin');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-jscs-checker');
+	grunt.loadNpmTasks('grunt-jsonlint');
 
 
 	// Tasks //
-	grunt.registerTask('default', ['clean', 'createdir', 'jshint', 'jscs', 'requirejs', 'cssmin', 'htmlmin', 'targethtml', 'copy', 'usebanner']);
-	grunt.registerTask('check', ['jshint', 'jscs']);
+	grunt.registerTask('check', ['jsonlint', 'jshint', 'jscs']);
+	grunt.registerTask('default', ['check', 'clean', 'createdir', 'requirejs', 'cssmin', 'htmlmin', 'targethtml', 'copy', 'usebanner']);
 };

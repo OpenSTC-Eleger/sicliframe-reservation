@@ -21,6 +21,7 @@
     "grunt-banner": "~0.2.0",
     "grunt-contrib-htmlmin": "~0.1.3",
     "grunt-contrib-jshint": "~0.8.0",
-    "grunt-jscs-checker": "~0.3.0"
+    "grunt-jscs-checker": "~0.3.0",
+    "grunt-jsonlint": "~1.0.4"
   }
 }
