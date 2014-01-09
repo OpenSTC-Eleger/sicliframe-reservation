@@ -1,12 +1,14 @@
 module.exports = function(grunt){
 
+	'use strict';
+
 
 	// Grunt configuration //
 	grunt.initConfig({
 
 		pkg: grunt.file.readJSON('package.json'),
 
-		build_directory : 'dist/',
+		build_directory : 'dist',
 
 
 		banner: '/*! \n' +
@@ -42,7 +44,10 @@ module.exports = function(grunt){
 				latedef : true,
 				maxcomplexity: 15
 			},
-			all: ['javascript/*.js']
+			/*gruntfile: {
+				src: 'Gruntfile.js'
+			},*/
+			all: ['script/*.js']
 		},
 
 
@@ -51,8 +56,8 @@ module.exports = function(grunt){
 			dist: {
 				options: {
 					name: 'init',
-					mainConfigFile: 'javascript/startup.js',
-					out: '<%= build_directory %>js/app.js',
+					mainConfigFile: 'script/startup.js',
+					out: '<%= build_directory %>/script/app.js',
 					paths: {
 						'text'               : 'libs/require-text.2.0.10.min',
 
@@ -79,12 +84,12 @@ module.exports = function(grunt){
 		copy: {
 			dist: {
 				files: [
-					{ src: 'config/configuration.json', dest: '<%= build_directory %>'},
-					{ src: 'properties.json', dest: '<%= build_directory %>'},
-					{ src: 'i18n/**', dest: '<%= build_directory %>'},
-					{ src: 'javascript/libs/require.2.1.9.min.js', dest:'<%= build_directory %>js/require.js' },
-					{ src: 'fonts/**', dest:'<%= build_directory %>' },
-					{ src: 'img/**', dest:'<%= build_directory %>' }
+					{ src: 'config/configuration.json', dest: '<%= build_directory %>/'},
+					{ src: 'properties.json', dest: '<%= build_directory %>/'},
+					{ src: 'i18n/**', dest: '<%= build_directory %>/'},
+					{ src: 'script/libs/require.2.1.9.min.js', dest:'<%= build_directory %>/script/require.js' },
+					{ src: 'fonts/**', dest:'<%= build_directory %>/' },
+					{ src: 'img/**', dest:'<%= build_directory %>/' }
 				]
 			}
 		},
@@ -94,7 +99,7 @@ module.exports = function(grunt){
 		targethtml: {
 			dist: {
 				files: {
-					'<%= build_directory %>index.html': 'index.html'
+					'<%= build_directory %>/index.html': 'index.html'
 				}
 			}
 		},
@@ -107,7 +112,7 @@ module.exports = function(grunt){
 			},
 			dist: {
 				files: {
-					'<%= build_directory %>style/app.css': ['style/libs/*.css', 'style/app.css']
+					'<%= build_directory %>/style/app.css': ['style/libs/*.css', 'style/app.css']
 				}
 			}
 		},
@@ -120,8 +125,8 @@ module.exports = function(grunt){
 					removeComments: true,
 				},
 				files: {
-					'<%= build_directory %>templates/booking-summary.html'  : 'templates/booking-summary.html',
-					'<%= build_directory %>templates/form-new-resa.html'    : 'templates/form-new-resa.html'
+					'<%= build_directory %>/templates/booking-summary.html'  : 'templates/booking-summary.html',
+					'<%= build_directory %>/templates/form-new-resa.html'    : 'templates/form-new-resa.html'
 				}
 			},
 		},
@@ -135,7 +140,7 @@ module.exports = function(grunt){
 					banner: '<%= banner %>'
 				},
 				files: {
-					src: [ '<%= build_directory %>js/*.js', '<%= build_directory %>style/*.css' ]
+					src: [ '<%= build_directory %>/script/*.js', '<%= build_directory %>/style/*.css' ]
 				}
 			}
 		}

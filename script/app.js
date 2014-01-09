@@ -175,6 +175,12 @@ define('app', [
 				$('.isAssociation').stop().slideDown();
 
 				this.bookingsModel.setCitizen(false);
+
+				// Set the claimer Id to the place url //
+				if(app.selectListClaimerAssociation.getSelectedItem() !== ''){
+					var url = _.template(app.api_url_bookables, {id: app.selectListClaimerAssociation.getSelectedItem()});
+					app.selectListBookingPlace.url = app.config.server_api_url+url;
+				}
 			}
 		},
 
