@@ -44,10 +44,18 @@ module.exports = function(grunt){
 				latedef : true,
 				maxcomplexity: 15
 			},
-			/*gruntfile: {
+			gruntfile: {
 				src: 'Gruntfile.js'
-			},*/
-			all: ['script/*.js']
+			},
+			jsonFile: {
+				options: {
+					quotmark: 'double'
+				},
+				src: ['config/*.json', 'i18n/**/*.json']
+			},
+			scripts: {
+				src: ['script/*.js']
+			}
 		},
 
 
@@ -185,4 +193,4 @@ module.exports = function(grunt){
 	// Tasks //
 	grunt.registerTask('default', ['clean', 'createdir', 'jshint', 'requirejs', 'cssmin', 'htmlmin', 'targethtml', 'copy', 'usebanner']);
 
-}
+};
