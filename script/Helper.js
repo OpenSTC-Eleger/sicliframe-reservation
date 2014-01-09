@@ -5,7 +5,7 @@ define('helper', [
 
 	'jquery'
 
-], function($){
+], function($) {
 
 	'use strict';
 
@@ -13,7 +13,7 @@ define('helper', [
 	var helper =  {
 
 
-		objectifyFilters: function (filterArray) {
+		objectifyFilters: function(filterArray) {
 			return $.extend({},filterArray);
 		},
 
@@ -21,7 +21,7 @@ define('helper', [
 
 		/** Ajax Setup
 		*/
-		setAjaxSetUp: function(token){
+		setAjaxSetUp: function(token) {
 
 			$.ajaxSetup({
 				contentType: 'application/json',
@@ -30,10 +30,10 @@ define('helper', [
 					401: function() {
 						console.log('Dont have the right');
 					},
-					500: function(){
+					500: function() {
 						console.log('Internal Server Error');
 					},
-					502: function(){
+					502: function() {
 						console.log('Bad Gateway ou Proxy Error');
 					}
 				}
@@ -42,7 +42,7 @@ define('helper', [
 		},
 
 
-		checkMail: function(email){
+		checkMail: function(email) {
 			var re = /\S+@\S+\.\S+/;
 			return re.test(email);
 		}

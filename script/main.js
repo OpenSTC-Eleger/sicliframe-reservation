@@ -5,7 +5,7 @@ define('main', [
 
 	'jquery', 'app', 'helper', 'moment'
 
-], function($, app, Helper, moment){
+], function($, app, Helper, moment) {
 
 	'use strict';
 
@@ -18,7 +18,7 @@ define('main', [
 
 			// Retrieve configuration and lang files //
 			$.when($.getJSON(app.configPath), $.getJSON(app.langPath), $.getJSON(app.propertiesPath))
-			.done(function (config_data, lang_data, prop_data) {
+			.done(function(config_data, lang_data, prop_data) {
 
 				// Set the global variables //
 				app.config     = config_data[0];
@@ -34,7 +34,7 @@ define('main', [
 				// Create the form //
 				app.formView();
 			})
-			.fail(function(e){
+			.fail(function(e) {
 				throw new Error('Unable to init the app' + e);
 			});
  

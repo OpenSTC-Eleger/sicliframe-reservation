@@ -1,6 +1,6 @@
 require([
 	'main',
-], function(main){
+], function(main) {
 
 	'use strict';
 

@@ -7,7 +7,7 @@ define('app', [
 	'jquery', 'bootstrap', 'underscore', 'helper', 'bookingsModel', 'moment', 'datepicker-lang', 'timepicker', 'advanceSelectBox', 'jquery.maskedinput',
 	'text!form-new-resa', 'text!booking-summary'
 
-], function($, bs, _, Helper, BookingsModel, moment, datepicker, timepicker, AdvanceSelectBox, mask, formTemplate, bookingSummaryTemplate){
+], function($, bs, _, Helper, BookingsModel, moment, datepicker, timepicker, AdvanceSelectBox, mask, formTemplate, bookingSummaryTemplate) {
 
 	'use strict';
 
@@ -20,7 +20,7 @@ define('app', [
 		api_url_booking_lines : 'openresa/booking_lines',
 
 		configPath       : 'config/configuration.json',
-		langPath         : 'i18n/'+window.navigator.language+'/lang.json',
+		langPath         : 'i18n/' + window.navigator.language + '/lang.json',
 		propertiesPath   : 'properties.json',
 
 		// Global Variable //
@@ -42,7 +42,7 @@ define('app', [
 
 		/** View Render
 		*/
-		formView: function(){
+		formView: function() {
 			var self = this;
 
 			// Retrieve the template // 
@@ -55,18 +55,18 @@ define('app', [
 			this.appContainer.html(tmp);
 
 
-			app.selectListClaimerAssociation = new AdvanceSelectBox({selectbox: $('#claimerAssociation'), url: app.config.server_api_url+this.api_url_partner});
+			app.selectListClaimerAssociation = new AdvanceSelectBox({selectbox: $('#claimerAssociation'), url: app.config.server_api_url + this.api_url_partner});
 			app.selectListClaimerAssociation.render();
 
 			// Filter on all the ASSO //
-			var selectListClaimerAssociationParams = { field : 'type_id.code', operator : 'ilike', value : 'ASSO' };
-			app.selectListClaimerAssociation.setSearchParam(selectListClaimerAssociationParams , true);
+			var selectListClaimerAssociationParams = { field: 'type_id.code', operator: 'ilike', value: 'ASSO' };
+			app.selectListClaimerAssociation.setSearchParam(selectListClaimerAssociationParams, true);
 
 
 			app.selectListBookingPlace = new AdvanceSelectBox({selectbox: $('#bookingPlace'), url: app.config.server_api_url});
 			app.selectListBookingPlace.render();
 			var selectListBookingPlaceParams = { field : 'type_prod', operator : 'ilike', value : 'site' };
-			app.selectListBookingPlace.setSearchParam(selectListBookingPlaceParams , true);
+			app.selectListBookingPlace.setSearchParam(selectListBookingPlaceParams, true);
 
 
 			$('.datepicker').datepicker({ format: 'dd/mm/yyyy',	weekStart: 1, autoclose: true, language: 'fr', todayHighlight: true });
@@ -78,32 +78,32 @@ define('app', [
 
 			
 			// Claimer type change //
-			$('input[name="claimerType"]').change(function(){
+			$('input[name="claimerType"]').change(function() {
 				self.changeClaimerType();
 			});
 
 
 			// Start date change //
-			$('#bookingStartDate').datepicker().on('changeDate', function(){
+			$('#bookingStartDate').datepicker().on('changeDate', function() {
 				$('#bookingEndDate').datepicker('setStartDate', $('#bookingStartDate').datepicker('getDate'));
 				$('#bookingEndDate').datepicker('setDate', $('#bookingStartDate').datepicker('getDate'));
 			});
 
 			// Start Hour change //
-			$('#bookingStartHour').timepicker().on('changeTime.timepicker', function(){
+			$('#bookingStartHour').timepicker().on('changeTime.timepicker', function() {
 				$('#bookingEndHour').timepicker('setTime', moment($('#bookingStartHour').val(), 'HH:mm').add('hours', 3).format('HH:00'));
 			});
 
 
 			// Association change, update the places List //
-			$('#claimerAssociation').on('change', function(){
+			$('#claimerAssociation').on('change', function() {
 				var url = _.template(app.api_url_bookables, {id: app.selectListClaimerAssociation.getSelectedItem()});
-				app.selectListBookingPlace.url = app.config.server_api_url+url;
+				app.selectListBookingPlace.url = app.config.server_api_url + url;
 			});
 
 
 			// Association change, update the places List //
-			$('#bookingPlace').on('change', function(){
+			$('#bookingPlace').on('change', function() {
 				app.bookingLines.name = app.selectListBookingPlace.getSelectedText();
 				app.bookingLines.line_id = app.selectListBookingPlace.getSelectedItem();
 			});
@@ -111,31 +111,31 @@ define('app', [
 
 
 			// Disable tab navigation //
-			$('li.disabled a').click(function(e){
+			$('li.disabled a').click(function(e) {
 				e.preventDefault();
 			});
 
 			// Previous button is click //
-			$('li.previous a').click(function(){
+			$('li.previous a').click(function() {
 				self.previousStep();
 			});
 
 
 			// Next button is click //
-			$('li.next a').click(function(){
+			$('li.next a').click(function() {
 				self.nextStep();
 			});
 
 
 			// Save the Booking //
-			$('#form').submit(function(e){
+			$('#form').submit(function(e) {
 				e.preventDefault();
 				self.submitForm();
 			});
 
 			
 			// Set the focus to the first Input //
-			$('#wizard li a').on('shown.bs.tab', function (e) {
+			$('#wizard li a').on('shown.bs.tab', function(e) {
 
 				var id = $(e.target).attr('href');
 				$(id + ' .form-group .form-control').first().focus();
@@ -146,40 +146,40 @@ define('app', [
 
 		/** When the claimer type change
 		*/
-		changeClaimerType: function(){
+		changeClaimerType: function() {
 			var self = this;
 
 			// Reset the booking Select Place //
 			app.selectListBookingPlace.reset();
 
 			// Is Citizen //
-			if($('#isCitizen').prop('checked')){
+			if ($('#isCitizen').prop('checked')){
 				$('.isCitizen').stop().slideDown();
 				$('.isAssociation').stop().slideUp();
 
 				$('#citizenName').focus();
 
 				// Retrieve the Id of the Citizen partner //
-				this.getIdOfPartnerCitizen().done(function(data){
+				this.getIdOfPartnerCitizen().done(function(data) {
 
 					var url = _.template(app.api_url_bookables, {id: data[0].id});
-					app.selectListBookingPlace.url = app.config.server_api_url+url;
+					app.selectListBookingPlace.url = app.config.server_api_url + url;
 
 					self.bookingsModel.setPartner(data[0].id);
 				});
 
 				this.bookingsModel.setCitizen(true);
 			}
-			else{
+			else {
 				$('.isCitizen').stop().slideUp();
 				$('.isAssociation').stop().slideDown();
 
 				this.bookingsModel.setCitizen(false);
 
 				// Set the claimer Id to the place url //
-				if(app.selectListClaimerAssociation.getSelectedItem() !== ''){
+				if (app.selectListClaimerAssociation.getSelectedItem() !== ''){
 					var url = _.template(app.api_url_bookables, {id: app.selectListClaimerAssociation.getSelectedItem()});
-					app.selectListBookingPlace.url = app.config.server_api_url+url;
+					app.selectListBookingPlace.url = app.config.server_api_url + url;
 				}
 			}
 		},
@@ -188,22 +188,22 @@ define('app', [
 
 		/** Previous Step
 		*/
-		previousStep: function(){
+		previousStep: function() {
 
-			if(this.currentStep == this.maxStep){
+			if (this.currentStep == this.maxStep){
 				$('button[type="submit"]').addClass('hide');	
 			}
 
 
-			this.currentStep = this.currentStep-1;
+			this.currentStep--;
 
-			if(this.currentStep >= 0){
+			if (this.currentStep >= 0){
 				// Show the previous Tab //
-				$('#wizard li:not(.sep):eq('+this.currentStep+') a').tab('show');
+				$('#wizard li:not(.sep):eq(' + this.currentStep + ') a').tab('show');
 
 				$('li.next a').removeClass('hide');
 
-				if(this.currentStep === 0){
+				if (this.currentStep === 0){
 					$('li.previous a').addClass('hide');
 				}
 			}
@@ -213,26 +213,26 @@ define('app', [
 
 		/** Next step
 		*/
-		nextStep: function(){
+		nextStep: function() {
 
 			// Check the form of the current step //
-			if(this.checkStep(this.currentStep)){
+			if (this.checkStep(this.currentStep)){
 
-				if(this.currentStep < this.maxStep){
-					this.currentStep = this.currentStep+1;
+				if (this.currentStep < this.maxStep){
+					this.currentStep++;
 
 					// Hide the next Button //
-					if(this.currentStep == this.maxStep){
+					if (this.currentStep == this.maxStep){
 						$('li.next a').addClass('hide');
 						$('button[type="submit"]').removeClass('hide');
 					}
 					// Display the previous button //
-					else{
+					else {
 						$('li.previous a').removeClass('hide');
 					}
 
 					// Show the next Tab //
-					$('#wizard li:not(.sep):eq('+this.currentStep+') a').tab('show');
+					$('#wizard li:not(.sep):eq(' + this.currentStep + ') a').tab('show');
 				}
 			}
 		},
@@ -241,30 +241,30 @@ define('app', [
 
 		/** Check the form of the step
 		*/
-		checkStep: function(step){
+		checkStep: function(step) {
 
-			switch(step){
+			switch (step){
 				case 0:
-					if(this.checkStep0()){
+					if (this.checkStep0()){
 						$('#step0 .form-group.has-error').removeClass('has-error');
 						$('li[data-step="0"]').addClass('success');
 						return true;
 					}
-					else{
+					else {
 						$('#step0 .form-group.has-error input').first().focus();
 						app.appContainer.find('#bookingName').focus();
 						return false;
 					}
 					break;
 				case 1:
-					if(this.checkStep1()){
+					if (this.checkStep1()){
 						$('#step1 .form-group.has-error').removeClass('has-error');
 						$('li[data-step="1"]').addClass('success');
 
 						this.displaySummary();
 						return true;
 					}
-					else{
+					else {
 						$('#step1 .form-group.has-error input').first().focus();
 						return false;
 					}
@@ -276,7 +276,7 @@ define('app', [
 
 		/** Check step 0
 		*/
-		checkStep0: function(){
+		checkStep0: function() {
 			var isCitizen      = $('#isCitizen').prop('checked');
 			var citizenName    = $('#citizenName').val();
 			var citizenMail    = $('#citizenMail').val();
@@ -287,67 +287,67 @@ define('app', [
 
 			var returnStatement = true;
 
-			if(isCitizen){
-				if(_.isEmpty(citizenName)){
+			if (isCitizen){
+				if (_.isEmpty(citizenName)){
 					$('#form-citizenName').addClass('has-error'); 
 					returnStatement = false;
 				}
-				else{
+				else {
 					$('#form-citizenName').removeClass('has-error');
 					this.bookingsModel.setCitizenName(citizenName);
 				}
 
-				if(_.isEmpty(citizenMail) || !Helper.checkMail(citizenMail)){
+				if (_.isEmpty(citizenMail) || !Helper.checkMail(citizenMail)){
 					$('#form-citizenMail').addClass('has-error');
 					returnStatement = false;
 				}
-				else{
+				else {
 					$('#form-citizenMail').removeClass('has-error');
 					this.bookingsModel.setCitizenMail(citizenMail);
 				}
 
-				if(_.isEmpty(citizenPhone)){
+				if (_.isEmpty(citizenPhone)){
 					$('#form-citizenPhone').addClass('has-error');
 					returnStatement = false;
 				}
-				else{
+				else {
 					$('#form-citizenPhone').removeClass('has-error');
 					this.bookingsModel.setCitizenPhone(citizenPhone);
 				}
 
-				if(_.isEmpty(citizenAddress)){
+				if (_.isEmpty(citizenAddress)){
 					$('#form-citizenAddress').addClass('has-error');
 					returnStatement = false;
 				}
-				else{
+				else {
 					$('#form-citizenAddress').removeClass('has-error');
 					this.bookingsModel.setCitizenAddress(citizenAddress);
 				}
 
-				if(_.isEmpty(citizenZipCode)){
+				if (_.isEmpty(citizenZipCode)){
 					$('#form-citizenZipCode').addClass('has-error');
 					returnStatement = false;
 				}
-				else{
+				else {
 					$('#form-citizenZipCode').removeClass('has-error');
 					this.bookingsModel.setCitizenZipCode(citizenZipCode);
 				}
 
-				if(_.isEmpty(citizenCity)){
+				if (_.isEmpty(citizenCity)){
 					$('#form-citizenCity').addClass('has-error');
 					returnStatement = false;
 				}
-				else{
+				else {
 					$('#form-citizenCity').removeClass('has-error');
 					this.bookingsModel.setCitizenCity(citizenCity);
 				}
 			}
-			else{
-				if(app.selectListClaimerAssociation.getSelectedItem() === ''){
+			else {
+				if (app.selectListClaimerAssociation.getSelectedItem() === ''){
 					$('#form-claimerAssociation').addClass('has-error');
 					returnStatement = false;
 				}
-				else{
+				else {
 					this.bookingsModel.setPartner(app.selectListClaimerAssociation.getSelectedItem());
 					this.bookingsModel.setPartnerName(app.selectListClaimerAssociation.getSelectedText());
 				}
@@ -360,56 +360,56 @@ define('app', [
 
 		/** Check step 1
 		*/
-		checkStep1: function(){
+		checkStep1: function() {
 			var bookingName      = $('#bookingName').val();
 			var bookingStartDate = $('#bookingStartDate').val();
 			var bookingStartHour = $('#bookingStartHour').val();
 			var bookingEndDate   = $('#bookingEndDate').val();
 			var bookingEndHour   = $('#bookingEndHour').val();
 
-			var mStartDate = moment(bookingStartDate+' '+bookingStartHour, 'DD/MM/YYYY HH:mm');
-			var mEndDate   = moment(bookingEndDate+' '+bookingEndHour, 'DD/MM/YYYY HH:mm');
+			var mStartDate = moment(bookingStartDate + ' ' + bookingStartHour, 'DD/MM/YYYY HH:mm');
+			var mEndDate   = moment(bookingEndDate + ' ' + bookingEndHour, 'DD/MM/YYYY HH:mm');
 
 			var returnStatement = true;
 
 			// Booking Name //
-			if(_.isEmpty(bookingName)){
+			if (_.isEmpty(bookingName)){
 				$('#form-bookingName').addClass('has-error');
 				returnStatement = false;
 			}
-			else{
+			else {
 				$('#form-bookingName').removeClass('has-error');
 				this.bookingsModel.setBookingsName(bookingName);
 			}
 
 			// Booking Place //
-			if(app.selectListBookingPlace.getSelectedItem() === ''){
+			if (app.selectListBookingPlace.getSelectedItem() === ''){
 				$('#form-bookingPlace').addClass('has-error');
 				returnStatement = false;
 			}
-			else{
+			else {
 				$('#form-bookingPlace').removeClass('has-error');
 			}
 
 			// Booking Start Date //
-			if(!mStartDate.isValid()){
+			if (!mStartDate.isValid()){
 				$('#form-bookingStartDate').addClass('has-error');
 				returnStatement = false;
 			}
-			else{
+			else {
 				this.bookingsModel.setStartDate(mStartDate);
 			}
 
 			// Booking End Date //
-			if(!mEndDate.isValid()){
+			if (!mEndDate.isValid()){
 				$('#form-bookingEndDate').addClass('has-error');
 				returnStatement = false;
 			}
-			else{
+			else {
 				this.bookingsModel.setEndDate(mEndDate);
 			}
 
-			if(mStartDate > mEndDate){
+			if (mStartDate > mEndDate){
 				$('#form-bookingEndDate').addClass('has-error');
 				returnStatement = false;	
 			}
@@ -421,7 +421,7 @@ define('app', [
 
 		/** Display the Summary
 		*/
-		displaySummary: function(){
+		displaySummary: function() {
 
 			var tmp = _.template(bookingSummaryTemplate, { booking : this.bookingsModel, lang : app.lang, bookingLines: app.bookingLines });
 
@@ -432,7 +432,7 @@ define('app', [
 
 		/** Display the Summary
 		*/
-		submitForm : function(){
+		submitForm : function() {
 
 			var obj = {
 				name               : this.bookingsModel.getName(),
@@ -442,10 +442,10 @@ define('app', [
 				reservation_line   : [[0, 0, {reserve_product : app.bookingLines.line_id }]]
 			};
 
-			if(this.bookingsModel.isCitizen()){
+			if (this.bookingsModel.isCitizen()){
 				obj.is_citizen    = true;
 				obj.people_name   = this.bookingsModel.getClaimer();
-				obj.partner_mail = this.bookingsModel.getPeopleMail();
+				obj.partner_mail  = this.bookingsModel.getPeopleMail();
 				obj.people_phone  = this.bookingsModel.getPeoplePhone();
 				obj.people_street = this.bookingsModel.getPeopleAddress();
 				obj.people_zip    = this.bookingsModel.getPeopleZipCode();
@@ -454,24 +454,24 @@ define('app', [
 
 			$('button[type="submit"]').button('loading');
 			var rest = $.ajax({
-				url   : app.config.server_api_url+app.api_url_bookings,
+				url   : app.config.server_api_url + app.api_url_bookings,
 				method: 'POST',
 				dataType: 'json',
 				data  : JSON.stringify(obj)
 			});
 
-			rest.done(function(){
-				var message = '<strong><i class="fa fa-check fa-lg fa-2x"></i></strong> '+ app.lang.infoMessage.validSendBooking;
+			rest.done(function() {
+				var message = '<strong><i class="fa fa-check fa-lg fa-2x"></i></strong> ' + app.lang.infoMessage.validSendBooking;
 				$('#submitMessage').html(message).addClass('alert-success').slideDown('slow');
 
 				$('li[data-step="2"]').addClass('success');
 				$('ul.pager').addClass('invisible');
 			})
-			.fail(function(){
-				var message = '<strong><i class="fa fa-times fa-lg fa-2x"></i></strong> '+ app.lang.errorMessage.errorSendBooking;
+			.fail(function() {
+				var message = '<strong><i class="fa fa-times fa-lg fa-2x"></i></strong> ' + app.lang.errorMessage.errorSendBooking;
 				$('#submitMessage').html(message).addClass('alert-danger').slideDown('slow');
 			})
-			.always(function(){
+			.always(function() {
 				$('button[type="submit"]').button('reset');
 			});
 
@@ -483,12 +483,12 @@ define('app', [
 
 		/** Get the id of the Partner Citizen
 		*/
-		getIdOfPartnerCitizen: function(){
+		getIdOfPartnerCitizen: function() {
 
 			var params = [{ field : 'type_id.code', operator : 'ilike', value : 'PART'}];
 
 			return $.ajax({
-				url: app.config.server_api_url+app.api_url_partner,
+				url: app.config.server_api_url + app.api_url_partner,
 				method: 'GET',
 				data: {
 					fields  : ['id'],

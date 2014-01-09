@@ -1,4 +1,4 @@
-module.exports = function(grunt){
+module.exports = function(grunt) {
 
 	'use strict';
 
@@ -34,24 +34,52 @@ module.exports = function(grunt){
 
 		// Check JS Files //
 		jshint: {
-			options:{
-				strict  : true,
-				unused  : true,
-				quotmark: 'single',
-				indent  : 4,
-				freeze  : true,
-				curly   : true,
-				latedef : true,
+			options: {
+				strict       : true,
+				unused       : true,
+				quotmark     : 'single',
+				indent       : 4,
+				freeze       : true,
+				curly        : true,
+				latedef      : true,
 				maxcomplexity: 15
 			},
 			gruntfile: {
-				src: 'Gruntfile.js'
+				src: ['Gruntfile.js']
 			},
 			jsonFile: {
 				options: {
 					quotmark: 'double'
 				},
 				src: ['config/*.json', 'i18n/**/*.json']
+			},
+			scripts: {
+				src: ['script/*.js']
+			}
+		},
+
+
+		// Check Style JS File 
+		jscs: {
+			options: {
+				'disallowKeywords'                        : ['with'],
+				'requireLeftStickedOperators'             : [','],
+				'disallowLeftStickedOperators'            : ['?', '+', '-', '/', '*', '=', '==', '===', '!=', '!==', '>', '>=', '<', '<='],
+				'disallowRightStickedOperators'           : ['?', '/', '*', ':', '=', '==', '===', '!=', '!==', '>', '>=', '<', '<='],
+				'disallowSpaceAfterPrefixUnaryOperators'  : ['++', '--', '+', '-', '~'],
+				'disallowSpaceBeforePostfixUnaryOperators': ['++', '--'],
+				'requireRightStickedOperators'            : ['!'],
+				'requireSpaceAfterBinaryOperators'        : ['+', '-', '/', '*', '=', '==', '===', '!=', '!=='],
+				'requireSpaceAfterKeywords'               : ['if', 'else', 'for', 'while', 'do', 'switch', 'return', 'try', 'catch'],
+				'requireSpaceBeforeBinaryOperators'       : ['+', '-', '/', '*', '=', '==', '===', '!=', '!=='],
+				'requireSpacesInFunctionExpression'       : { 'beforeOpeningCurlyBrace': true },
+				'requireKeywordsOnNewLine'                : ['else'],
+				'disallowSpacesInFunctionExpression'      : { 'beforeOpeningRoundBrace': true },
+				'validateLineBreaks'                      : 'LF',
+				'force': true
+			},
+			gruntfile: {
+				src: ['Gruntfile.js']
 			},
 			scripts: {
 				src: ['script/*.js']
@@ -95,9 +123,9 @@ module.exports = function(grunt){
 					{ src: 'config/configuration.json', dest: '<%= build_directory %>/'},
 					{ src: 'properties.json', dest: '<%= build_directory %>/'},
 					{ src: 'i18n/**', dest: '<%= build_directory %>/'},
-					{ src: 'script/libs/require.2.1.9.min.js', dest:'<%= build_directory %>/script/require.js' },
-					{ src: 'fonts/**', dest:'<%= build_directory %>/' },
-					{ src: 'img/**', dest:'<%= build_directory %>/' }
+					{ src: 'script/libs/require.2.1.9.min.js', dest: '<%= build_directory %>/script/require.js' },
+					{ src: 'fonts/**', dest: '<%= build_directory %>/' },
+					{ src: 'img/**', dest: '<%= build_directory %>/' }
 				]
 			}
 		},
@@ -115,7 +143,7 @@ module.exports = function(grunt){
 
 		// Build the CSS //
 		cssmin: {
-			options:{
+			options: {
 				keepSpecialComments : 0
 			},
 			dist: {
@@ -162,12 +190,12 @@ module.exports = function(grunt){
 		var data = this.data;
 
 		// Check if the dir path is specify //
-		if(grunt.util.kindOf(data.dir) == 'undefined'){
+		if (grunt.util.kindOf(data.dir) == 'undefined'){
 			grunt.log.errorlns('Specify a directory');
 		}
-		else{
+		else {
 			// Check if the dir exist //
-			if(grunt.file.exists(data.dir)){
+			if (grunt.file.exists(data.dir)){
 				grunt.log.warn('The directory already exist, deleting...');
 				grunt.file.delete(data.dir);
 			}
@@ -188,9 +216,10 @@ module.exports = function(grunt){
 	grunt.loadNpmTasks('grunt-banner');
 	grunt.loadNpmTasks('grunt-contrib-htmlmin');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-jscs-checker');
 
 
 	// Tasks //
-	grunt.registerTask('default', ['clean', 'createdir', 'jshint', 'requirejs', 'cssmin', 'htmlmin', 'targethtml', 'copy', 'usebanner']);
-
+	grunt.registerTask('default', ['clean', 'createdir', 'jshint', 'jscs', 'requirejs', 'cssmin', 'htmlmin', 'targethtml', 'copy', 'usebanner']);
+	grunt.registerTask('check', ['jshint', 'jscs']);
 };
