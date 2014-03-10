@@ -20,7 +20,7 @@ define('app', [
 		api_url_booking_lines : 'openresa/booking_lines',
 
 		configPath       : 'config/configuration.json',
-		langPath         : 'i18n/' + window.navigator.language + '/lang.json',
+		langPath         : 'i18n/fr/lang.json',
 		propertiesPath   : 'properties.json',
 
 		// Global Variable //
@@ -45,7 +45,7 @@ define('app', [
 		formView: function() {
 			var self = this;
 
-			// Retrieve the template // 
+			// Retrieve the template //
 			var tmp = _.template(formTemplate, {
 				lang       : app.lang,
 				moment     : moment(),
@@ -76,7 +76,7 @@ define('app', [
 			$('*[data-toggle="tooltip"]').tooltip({container : 'body'});
 			$('#citizenZipCode').mask('44999');
 
-			
+
 			// Claimer type change //
 			$('input[name="claimerType"]').change(function() {
 				self.changeClaimerType();
@@ -133,7 +133,7 @@ define('app', [
 				self.submitForm();
 			});
 
-			
+
 			// Set the focus to the first Input //
 			$('#wizard li a').on('shown.bs.tab', function(e) {
 
@@ -191,7 +191,7 @@ define('app', [
 		previousStep: function() {
 
 			if (this.currentStep == this.maxStep){
-				$('button[type="submit"]').addClass('hide');	
+				$('button[type="submit"]').addClass('hide');
 			}
 
 
@@ -289,7 +289,7 @@ define('app', [
 
 			if (isCitizen){
 				if (_.isEmpty(citizenName)){
-					$('#form-citizenName').addClass('has-error'); 
+					$('#form-citizenName').addClass('has-error');
 					returnStatement = false;
 				}
 				else {
@@ -411,7 +411,7 @@ define('app', [
 
 			if (mStartDate > mEndDate){
 				$('#form-bookingEndDate').addClass('has-error');
-				returnStatement = false;	
+				returnStatement = false;
 			}
 
 			return returnStatement;

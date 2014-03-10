@@ -9,7 +9,7 @@ define('main', [
 
 	'use strict';
 
-	var main  = {
+	var main = {
 
 
 		/** Application initialization
