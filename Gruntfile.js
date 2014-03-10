@@ -19,9 +19,11 @@ module.exports = function(grunt) {
 			'<%= pkg.author.name %>\n' +
 			'*/',
 
+		archiveName: '<%= pkg.name %>_v<%= pkg.version %>.tar.gz',
+
 
 		// Clean the dist directory //
-		clean: ['<%= build_directory %>'],
+		clean: ['<%= build_directory %>', '*.tar.gz'],
 
 
 		// Create the build directory //
@@ -67,7 +69,7 @@ module.exports = function(grunt) {
 		},
 
 
-		// Check Style JS File 
+		// Check Style JS File
 		jscs: {
 			options: {
 				'disallowKeywords'                        : ['with'],
@@ -111,7 +113,7 @@ module.exports = function(grunt) {
 						'underscore.string'  : 'libs/underscore.string.2.3.3.min',
 						'moment'             : 'libs/moment.2.5.0.min',
 						'jquery.maskedinput' : 'libs/jquery.maskedinput.1.3.1.min',
-		
+
 						'select2'            : 'libs/select2.3.4.5.min',
 						'select2-lang'       : 'libs/select2.3.4.5.locale.fr.min',
 						'datepicker'         : 'libs/bootstrap-datepicker.1.2.0.min',
@@ -175,7 +177,7 @@ module.exports = function(grunt) {
 			},
 		},
 
-		
+
 		// Add banner to the files //
 		usebanner: {
 			dist: {
@@ -187,6 +189,22 @@ module.exports = function(grunt) {
 					src: [ '<%= build_directory %>/script/*.js', '<%= build_directory %>/style/*.css' ]
 				}
 			}
+		},
+
+
+		// Archive the dist //
+		compress : {
+			dist : {
+				options : {
+					mode   : 'tgz',
+					level  : 9,
+					archive: '<%= archiveName %>',
+					pretty : true
+				},
+				files : [
+					{ expand: true, src : '**/*', cwd : 'dist/' }
+				]
+			}
 		}
 
 	});
@@ -194,7 +212,7 @@ module.exports = function(grunt) {
 
 	// Task to create The Build Directory //
 	grunt.registerMultiTask('createdir', 'Create the Build Directory', function() {
-		
+
 		var data = this.data;
 
 		// Check if the dir path is specify //
@@ -222,5 +240,5 @@ module.exports = function(grunt) {
 
 	// Tasks //
 	grunt.registerTask('check', ['jsonlint', 'jshint', 'jscs']);
-	grunt.registerTask('default', ['check', 'clean', 'createdir', 'requirejs', 'cssmin', 'htmlmin', 'targethtml', 'copy', 'usebanner']);
+	grunt.registerTask('default', ['check', 'clean', 'createdir', 'requirejs', 'cssmin', 'htmlmin', 'targethtml', 'copy', 'usebanner', 'compress']);
 };
