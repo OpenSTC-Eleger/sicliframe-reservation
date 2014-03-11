@@ -130,7 +130,7 @@ module.exports = function(grunt) {
 		copy: {
 			dist: {
 				files: [
-					{ src: 'config/configuration.json', dest: '<%= build_directory %>/'},
+					{ src: 'config/configuration.json.example', dest: '<%= build_directory %>/'},
 					{ src: 'properties.json', dest: '<%= build_directory %>/'},
 					{ src: 'i18n/**', dest: '<%= build_directory %>/'},
 					{ src: 'script/libs/require.2.1.9.min.js', dest: '<%= build_directory %>/script/require.js' },
