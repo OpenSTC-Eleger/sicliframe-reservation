@@ -210,6 +210,76 @@ module.exports = function(grunt) {
 	});
 
 
+	/** Check if the version in package.json and properties.json are equal
+	*   && if the package version are equal to the last git Tag
+	*/
+	grunt.registerTask('checkVersion', 'Check if the version in package.json and properties.json are equal', function() {
+
+		// Require semver //
+		var semver = require('semver');
+
+
+		// Get the Semver version in the package file //
+		var packageVersion = grunt.file.readJSON('package.json').version;
+
+		// Get the Semver version in the properties file //
+		var propertiesVersion = grunt.file.readJSON('properties.json').version;
+
+		// Get the last Git Tag version //
+		var shell = require('shelljs');
+		var cmdOutput = shell.exec('git describe --tags `git rev-list --tags --max-count=1`', {'silent': true});
+
+		if (cmdOutput.code !== 0){
+			grunt.fail.fatal('Git software are require');
+		}
+
+		var lastTagVersion = cmdOutput.output.replace(/(\r\n|\n|\r)/gm, '');
+
+
+		// Check if the last Git Tag is correct //
+		if (!semver.valid(lastTagVersion)){
+			grunt.fail.warn('Last Git tag Version is not correct');
+			grunt.log.error(lastTagVersion);
+		}
+
+		// Check if the properties.json version is correct //
+		if (!semver.valid(propertiesVersion)){
+			grunt.fail.warn('Version in properties.json file is not correct');
+			grunt.log.error(propertiesVersion);
+		}
+
+		// Check if the package.json version is correct //
+		if (!semver.valid(packageVersion)){
+			grunt.fail.warn('Version in package.json file is not correct');
+			grunt.log.error(packageVersion);
+		}
+
+
+
+		// Check if the package.json version and properties.json version are equal //
+		if (packageVersion !== propertiesVersion){
+			grunt.fail.warn('Versions in properties.json and package.json are not equal');
+			grunt.log.error(packageVersion + ' != ' + propertiesVersion);
+		}
+
+
+		if (semver.gt(lastTagVersion, packageVersion)){
+			grunt.fail.warn('App version are lower than the last Git tag');
+			grunt.log.error(packageVersion + ' != ' + lastTagVersion);
+		}
+		else if (semver.lt(lastTagVersion, packageVersion)){
+			grunt.fail.warn('App version are greater than the last Git tag');
+			grunt.log.error(packageVersion + ' != ' + lastTagVersion);
+		}
+
+
+		grunt.log.writeln('Check version done without error.'.green);
+		grunt.log.ok('App version ' + propertiesVersion);
+
+	});
+
+
+
 	// Task to create The Build Directory //
 	grunt.registerMultiTask('createdir', 'Create the Build Directory', function() {
 
@@ -239,6 +309,6 @@ module.exports = function(grunt) {
 
 
 	// Tasks //
-	grunt.registerTask('check', ['jsonlint', 'jshint', 'jscs']);
+	grunt.registerTask('check', ['jsonlint', 'jshint', 'jscs', 'checkVersion']);
 	grunt.registerTask('default', ['check', 'clean', 'createdir', 'requirejs', 'cssmin', 'htmlmin', 'targethtml', 'copy', 'usebanner', 'compress']);
 };

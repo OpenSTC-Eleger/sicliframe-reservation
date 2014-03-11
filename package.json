@@ -1,6 +1,6 @@
 {
   "name": "Sicliframe-resa",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Formulaire de réservation de salles",
   "repository": {
     "type": "git",
@@ -24,6 +24,8 @@
     "grunt-jscs-checker": "~0.3.0",
     "grunt-jsonlint": "~1.0.4",
     "load-grunt-tasks": "~0.2.1",
-    "grunt-contrib-compress": "~0.7.0"
+    "grunt-contrib-compress": "~0.7.0",
+    "semver": "~2.2.1",
+    "shelljs": "~0.2.6"
   }
 }
