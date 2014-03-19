@@ -104,21 +104,6 @@ module.exports = function(grunt) {
 					name: 'init',
 					mainConfigFile: 'script/startup.js',
 					out: '<%= build_directory %>/script/app.js',
-					paths: {
-						'text'               : 'libs/require-text.2.0.10.min',
-
-						'jquery'             : 'libs/jquery-2.0.3.min',
-						'bootstrap'          : 'libs/bootstrap.3.0.3.min',
-						'underscore'         : 'libs/underscore.1.5.2.min',
-						'underscore.string'  : 'libs/underscore.string.2.3.3.min',
-						'moment'             : 'libs/moment.2.5.0.min',
-						'jquery.maskedinput' : 'libs/jquery.maskedinput.1.3.1.min',
-
-						'select2'            : 'libs/select2.3.4.5.min',
-						'select2-lang'       : 'libs/select2.3.4.5.locale.fr.min',
-						'datepicker'         : 'libs/bootstrap-datepicker.1.2.0.min',
-						'datepicker-lang'    : 'libs/bootstrap-datepicker.1.2.0.locale.fr.min'
-					},
 					optimize: 'uglify2',
 					preserveLicenseComments: false,
 				}
