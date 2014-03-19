@@ -133,7 +133,7 @@ module.exports = function(grunt) {
 					{ src: 'config/configuration.json.example', dest: '<%= build_directory %>/'},
 					{ src: 'properties.json', dest: '<%= build_directory %>/'},
 					{ src: 'i18n/**', dest: '<%= build_directory %>/'},
-					{ src: 'script/libs/require.2.1.9.min.js', dest: '<%= build_directory %>/script/require.js' },
+					{ src: 'script/libs/require.2.1.11.min.js', dest: '<%= build_directory %>/script/require.js' },
 					{ src: 'fonts/**', dest: '<%= build_directory %>/' },
 					{ src: 'img/**', dest: '<%= build_directory %>/' }
 				]
