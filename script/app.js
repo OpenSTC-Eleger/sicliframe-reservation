@@ -468,7 +468,7 @@ define('app', [
 				$('ul.pager').addClass('invisible');
 			})
 			.fail(function() {
-				var message = '<strong><i class="fa fa-times fa-lg fa-2x"></i></strong> ' + app.lang.errorMessage.errorSendBooking;
+				var message = '<strong><i class="fa fa-warning fa-lg fa-2x"></i></strong> ' + app.lang.errorMessage.errorSendBooking;
 				$('#submitMessage').html(message).addClass('alert-danger').slideDown('slow');
 			})
 			.always(function() {

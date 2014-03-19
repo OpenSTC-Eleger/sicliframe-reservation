@@ -8,38 +8,6 @@
 	padding-left: 10px;
 	height: 34px;
 }
-.select2 .select2-search-choice a.select2-search-choice-close {
-	top: 3px;
-	left: 5px;
-}
-div.select2-container.tag-large ul.select2-choices {
-	background-color: #FFF;
-	background-image: none;
-}
-div.select2-container.tag-large ul.select2-choices li.select2-search-choice {
-	margin-left: 5%;
-	padding: 7px 2px 7px 22px;
-	width: 92%;
-	border-radius: 0;
-	background-color: #eeeeee;
-	background-image: none;
-}
-div.select2-container.tag-large ul.select2-choices li.select2-search-choice:first-child {
-	margin-top: 5px;
-}
-div.select2-container.tag-large ul.select2-choices li.select2-search-choice-focus {
-	background-color: #d9edf7;
-	font-weight: bolder;
-}
-div.select2-container.tag-large ul.select2-choices li.select2-search-choice a.select2-search-choice-close {
-	top: 7px;
-	left: 5px;
-}
-.input-group .select2-container .select2-choice {
-	border-left: 0;
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
-}
 
 /* Validation state */
 .form-group.has-error .select2 a{
