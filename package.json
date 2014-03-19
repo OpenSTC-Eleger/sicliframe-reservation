@@ -26,6 +26,7 @@
     "load-grunt-tasks": "~0.4.0",
     "grunt-contrib-compress": "~0.7.0",
     "semver": "~2.2.1",
-    "shelljs": "~0.2.6"
+    "shelljs": "~0.2.6",
+    "grunt-githooks": "~0.3.1"
   }
 }

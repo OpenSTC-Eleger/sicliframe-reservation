@@ -190,6 +190,14 @@ module.exports = function(grunt) {
 					{ expand: true, src : '**/*', cwd : 'dist/' }
 				]
 			}
+		},
+
+
+		// Hooks to run check task before each commit //
+		githooks: {
+			all: {
+				'pre-commit': 'check',
+			}
 		}
 
 	});
