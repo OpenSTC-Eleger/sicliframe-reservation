@@ -11,6 +11,7 @@ module.exports = function(grunt) {
 		build_directory : 'dist',
 
 
+		// Dist Licence banner //
 		banner: '/*! \n' +
 			'* <%= pkg.name %> - v<%= pkg.version %> - (<%= grunt.template.today("yyyy-mm-dd") %>)\n' +
 			'* <%= pkg.description %>\n' +
@@ -19,7 +20,15 @@ module.exports = function(grunt) {
 			'<%= pkg.author.name %>\n' +
 			'*/',
 
+		// License banner //
+		bannerLicence: '/*! \n' +
+			' * <%= pkg.name %>\n' +
+			' * Copyright 2013-<%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
+			' * Licensed under <%= pkg.license.type %> (<%= pkg.license.url %>)\n' +
+			' */\n',
+
 		archiveName: '<%= pkg.name %>_v<%= pkg.version %>.tar.gz',
+
 
 
 		// Clean the dist directory //
@@ -116,7 +125,7 @@ module.exports = function(grunt) {
 			dist: {
 				files: [
 					{ src: 'config/configuration.json.example', dest: '<%= build_directory %>/'},
-					{ src: 'properties.json', dest: '<%= build_directory %>/'},
+					{ src: ['LICENSE', 'AUTHORS', 'properties.json'], dest: '<%= build_directory %>/'},
 					{ src: 'i18n/**', dest: '<%= build_directory %>/'},
 					{ src: 'script/libs/require.2.1.11.min.js', dest: '<%= build_directory %>/script/require.js' },
 					{ src: 'fonts/**', dest: '<%= build_directory %>/' },
@@ -173,6 +182,15 @@ module.exports = function(grunt) {
 				files: {
 					src: [ '<%= build_directory %>/script/*.js', '<%= build_directory %>/style/*.css' ]
 				}
+			},
+			licence: {
+				options: {
+					position: 'top',
+					banner: '<%= bannerLicence %>'
+				},
+				files: {
+					src: [ 'script/*.js', 'style/*.css' ]
+				}
 			}
 		},
 
@@ -198,7 +216,7 @@ module.exports = function(grunt) {
 			all: {
 				'pre-commit': 'check',
 			}
-		}
+		},
 
 	});
 

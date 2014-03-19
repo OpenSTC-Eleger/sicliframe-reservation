@@ -11,6 +11,10 @@
     "reservation salles"
   ],
   "author": "Siclic <contact@siclic.fr>",
+  "license": {
+    "type": "AGPL-3.0",
+    "url": "https://www.gnu.org/licenses/agpl.txt"
+  },
   "devDependencies": {
     "grunt": "~0.4.4",
     "grunt-contrib-requirejs": "~0.4.3",
