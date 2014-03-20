@@ -1,16 +1,4 @@
-/*! 
- * Sicliframe-resa
- * Copyright 2013-2014 Siclic <contact@siclic.fr>
- * Licensed under AGPL-3.0 (https://www.gnu.org/licenses/agpl.txt)
- */
-
-/*! 
- * Sicliframe-resa
- * Copyright 2013-2014 Siclic <contact@siclic.fr>
- * Licensed under AGPL-3.0 (https://www.gnu.org/licenses/agpl.txt)
- */
-
-/*! 
+/*!
  * Sicliframe-resa
  * Copyright 2013-2014 Siclic <contact@siclic.fr>
  * Licensed under AGPL-3.0 (https://www.gnu.org/licenses/agpl.txt)
@@ -66,18 +54,18 @@ define([
 			this.selectbox.select2({
 				allowClear         : true,
 				placeholder        : placeholder,
-				multiple           : multiple, 
+				multiple           : multiple,
 				minimumInputLength : minimumInputLength,
 				query: function(query) {
 
 					// SEARCH PARAMS //
 					var params = [];
-					
+
 					if (_.contains(fields, 'complete_name')){
 						params.push({ field : 'complete_name', operator : 'ilike', value : query.term});
 					}
 					else {
-						params.push({ field : 'name', operator : 'ilike', value : query.term});	
+						params.push({ field : 'name', operator : 'ilike', value : query.term});
 					}
 
 					// Set all the search params in the params for the query //
@@ -118,7 +106,7 @@ define([
 
 					// If no term was enter, results are Alphabetic //
 					if (_.isEmpty(query.term)){
-						sortResults = _.sortBy(results, function(result) { 
+						sortResults = _.sortBy(results, function(result) {
 							return result.text;
 						});
 					}
@@ -127,7 +115,7 @@ define([
 						var otherResults = [];
 						var beginWithResults = _.filter(results, function(result) {
 
-							
+
 							if (_str.startsWith(result.text.toUpperCase(), query.term.toUpperCase())){
 								return result;
 							}
@@ -142,7 +130,7 @@ define([
 					return sortResults;
 				},
 				containerCssClass: function() {
-					if (!_.isUndefined(self.selectbox.data('tag-large'))){ 
+					if (!_.isUndefined(self.selectbox.data('tag-large'))){
 						return 'tag-large';
 					}
 				}
@@ -188,8 +176,8 @@ define([
 
 			return returnId;
 		};
-		
-		
+
+
 
 		/** Get the value of the selected item
 		*/
@@ -212,7 +200,7 @@ define([
 			var returnIds = [];
 
 			if (!_.isEmpty(this.selectbox.select2('data'))){
-				
+
 				_.each(this.selectbox.select2('data'), function(item) {
 					returnIds.push(item.id);
 				});

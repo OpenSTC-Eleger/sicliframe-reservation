@@ -321,5 +321,5 @@ module.exports = function(grunt) {
 
 	// Tasks //
 	grunt.registerTask('check', ['jsonlint', 'jshint', 'jscs', 'checkVersion']);
-	grunt.registerTask('default', ['check', 'clean', 'createdir', 'requirejs', 'cssmin', 'htmlmin', 'targethtml', 'copy', 'usebanner', 'compress']);
+	grunt.registerTask('default', ['check', 'clean', 'createdir', 'requirejs', 'cssmin', 'htmlmin', 'targethtml', 'copy', 'usebanner:dist', 'compress']);
 };

@@ -1,16 +1,4 @@
-/*! 
- * Sicliframe-resa
- * Copyright 2013-2014 Siclic <contact@siclic.fr>
- * Licensed under AGPL-3.0 (https://www.gnu.org/licenses/agpl.txt)
- */
-
-/*! 
- * Sicliframe-resa
- * Copyright 2013-2014 Siclic <contact@siclic.fr>
- * Licensed under AGPL-3.0 (https://www.gnu.org/licenses/agpl.txt)
- */
-
-/*! 
+/*!
  * Sicliframe-resa
  * Copyright 2013-2014 Siclic <contact@siclic.fr>
  * Licensed under AGPL-3.0 (https://www.gnu.org/licenses/agpl.txt)
@@ -41,6 +29,7 @@ requirejs.config({
 		'datepicker'         : 'libs/bootstrap-datepicker.1.3.0.min',
 		'datepicker-lang'    : 'libs/bootstrap-datepicker.1.3.0.locale.fr.min',
 		'timepicker'         : 'libs/timepicker-0.2.6',
+		'fullcalendar'       : 'libs/fullcalendar-2.0.0-beta2',
 
 
 		/* ########
@@ -50,6 +39,7 @@ requirejs.config({
 		'main'               : 'main',
 		'helper'             : 'Helper',
 		'advanceSelectBox'   : 'AdvanceSelectBox',
+		'fullCalendarView'   : 'FullCalendarView',
 		'bookingsModel'      : 'BookingsModel',
 
 
@@ -85,6 +75,10 @@ requirejs.config({
 		},
 		'jquery.maskedinput' : {
 			deps   : ['jquery']
+		},
+		'fullcalendar': {
+			deps   : ['jquery', 'moment'],
+			exports: 'fullcalendar'
 		}
 	}
 

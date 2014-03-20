@@ -1,16 +1,4 @@
-/*! 
- * Sicliframe-resa
- * Copyright 2013-2014 Siclic <contact@siclic.fr>
- * Licensed under AGPL-3.0 (https://www.gnu.org/licenses/agpl.txt)
- */
-
-/*! 
- * Sicliframe-resa
- * Copyright 2013-2014 Siclic <contact@siclic.fr>
- * Licensed under AGPL-3.0 (https://www.gnu.org/licenses/agpl.txt)
- */
-
-/*! 
+/*!
  * Sicliframe-resa
  * Copyright 2013-2014 Siclic <contact@siclic.fr>
  * Licensed under AGPL-3.0 (https://www.gnu.org/licenses/agpl.txt)
@@ -22,10 +10,10 @@
 define('app', [
 
 	// Load our app module and pass it to our definition function
-	'jquery', 'bootstrap', 'underscore', 'helper', 'bookingsModel', 'moment', 'datepicker-lang', 'timepicker', 'advanceSelectBox', 'jquery.maskedinput',
+	'jquery', 'bootstrap', 'underscore', 'helper', 'bookingsModel', 'moment', 'datepicker-lang', 'timepicker', 'advanceSelectBox', 'jquery.maskedinput', 'fullCalendarView',
 	'text!form-new-resa', 'text!booking-summary'
 
-], function($, bs, _, Helper, BookingsModel, moment, datepicker, timepicker, AdvanceSelectBox, mask, formTemplate, bookingSummaryTemplate) {
+], function($, bs, _, Helper, BookingsModel, moment, datepicker, timepicker, AdvanceSelectBox, mask, FullCalendarView, formTemplate, bookingSummaryTemplate) {
 
 	'use strict';
 
@@ -158,6 +146,11 @@ define('app', [
 				var id = $(e.target).attr('href');
 				$(id + ' .form-group .form-control').first().focus();
 			});
+
+
+			app.fullCalendar = new FullCalendarView({});
+			app.fullCalendar.render();
+
 		},
 
 
@@ -453,11 +446,11 @@ define('app', [
 		submitForm : function() {
 
 			var obj = {
-				name               : this.bookingsModel.getName(),
-				checkin            : moment(this.bookingsModel.checkin).utc().format('YYYY-MM-DD HH:mm:ss'),
-				checkout           : moment(this.bookingsModel.checkout).utc().format('YYYY-MM-DD HH:mm:ss'),
-				partner_id         : this.bookingsModel.partner_id,
-				reservation_line   : [[0, 0, {reserve_product : app.bookingLines.line_id }]]
+				name             : this.bookingsModel.getName(),
+				checkin          : moment(this.bookingsModel.checkin).utc().format('YYYY-MM-DD HH:mm:ss'),
+				checkout         : moment(this.bookingsModel.checkout).utc().format('YYYY-MM-DD HH:mm:ss'),
+				partner_id       : this.bookingsModel.partner_id,
+				reservation_line : [[0, 0, {reserve_product : app.bookingLines.line_id }]]
 			};
 
 			if (this.bookingsModel.isCitizen()){
@@ -520,5 +513,4 @@ define('app', [
 	};
 
 	return app;
-
 });
