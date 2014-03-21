@@ -27,7 +27,7 @@
 -------------------------------------------------- */
 @media (min-width: 768px){
 
-	#wizard li.sep:before {
+	.wizard-nav li.sep:before {
 		position: relative;
 		bottom: 7px;
 		z-index: 1;
@@ -40,28 +40,29 @@
 	}
 }
 
-#wizard{
+.wizard-nav{
 	margin-bottom: 20px;
 	padding: 10px;
 }
 
-#wizard li:not(.active) a{
-	background-color: #f5f5f5;
+
+.wizard-nav li:not(.active) a{
+	background-color: #f5f5f5 !important;
 }
-#wizard li.success a{
-	background-color: #5cb85c;
-	color: white;
+.wizard-nav li.success a{
+	background-color: #5cb85c !important;
+	color: white !important;
 }
-#wizard li.error a{
-	background-color: #d9534f;
-	color: white;
+.wizard-nav li.error a{
+	background-color: #d9534f !important;
+	color: white !important;
 }
 
 
-#wizard li:not(.active) a .sbadge{
+.wizard-nav li:not(.active) a .sbadge{
 	border-right: thin solid #428bca;
 }
-#wizard li.success a .sbadge{
+.wizard-nav li.success a .sbadge{
 	border-right: thin solid white;
 }
 .sbadge{

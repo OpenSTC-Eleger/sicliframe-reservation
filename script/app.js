@@ -64,6 +64,11 @@ define('app', [
 			app.selectListClaimerAssociation = new AdvanceSelectBox({selectbox: $('#claimerAssociation'), url: app.config.server_api_url + this.api_url_partner});
 			app.selectListClaimerAssociation.render();
 
+
+			app.fullCalendar = new FullCalendarView({ el: $('#calendar'), lang: app.lang });
+			app.fullCalendar.render();
+
+
 			// Filter on all the ASSO //
 			var selectListClaimerAssociationParams = { field: 'type_id.code', operator: 'ilike', value: 'ASSO' };
 			app.selectListClaimerAssociation.setSearchParam(selectListClaimerAssociationParams, true);
@@ -146,10 +151,6 @@ define('app', [
 				var id = $(e.target).attr('href');
 				$(id + ' .form-group .form-control').first().focus();
 			});
-
-
-			app.fullCalendar = new FullCalendarView({});
-			app.fullCalendar.render();
 
 		},
 
