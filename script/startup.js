@@ -29,7 +29,7 @@ requirejs.config({
 		'datepicker'         : 'libs/bootstrap-datepicker.1.3.0.min',
 		'datepicker-lang'    : 'libs/bootstrap-datepicker.1.3.0.locale.fr.min',
 		'timepicker'         : 'libs/timepicker-0.2.6',
-		'fullcalendar'       : 'libs/fullcalendar-2.0.0-beta2',
+		'fullCalendar'       : 'libs/fullcalendar-1.6.4',
 
 
 		/* ########
@@ -77,8 +77,7 @@ requirejs.config({
 			deps   : ['jquery']
 		},
 		'fullcalendar': {
-			deps   : ['jquery', 'moment'],
-			exports: 'fullcalendar'
+			deps   : ['jquery'],
 		}
 	}
 
