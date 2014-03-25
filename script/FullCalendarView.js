@@ -10,19 +10,23 @@
 define([
 
 	// Load our app module and pass it to our definition function
-	'fullCalendar'
+	'fullCalendar', 'moment', 'helper'
 
-], function() {
+], function(fullCalendar, moment, Helper) {
 
 	'use strict';
 
 
 	var FullCalendarView = function(params) {
 
+		this.bookings_url = '/api/openresa/bookings';
+
 
 		// Retrieve params //
-		this.calendar = params.el;
-		this.lang     = params.lang;
+		this.calendar         = params.el;
+		this.lang             = params.lang;
+		this.bookings_url     = params.urlBookings;
+		this.selectedResource = '';
 
 
 		/** View Render
@@ -36,11 +40,11 @@ define([
 				/** Full calendar attributes **/
 				defaultView   : 'agendaWeek',
 				ignoreTimezone: false,
-				aspectRatio   : 2,
+				aspectRatio   : 2.1,
 				header: {
 					left  : 'title',
 					center: '',
-					right : 'agendaWeek,agendaDay, today,prev,next'
+					right : 'agendaWeek,agendaDay today,prev,next'
 				},
 				// time formats
 				titleFormat: {
@@ -67,66 +71,114 @@ define([
 					week : self.lang.week,
 					day  : self.lang.day
 				},
-				allDaySlot         : false,
-				slotMinutes        : 30,
-				firstHour          : 9,
-				dragOpacity        : 0.5,
-				weekends           : true,
-				selectable         : true,
-				selectHelper       : true,
+				allDaySlot     : false,
+				slotMinutes    : 30,
+				firstHour      : 9,
+				dragOpacity    : 0.5,
+				weekends       : true,
+				selectable     : true,
+				selectHelper   : true,
 
 
 				/** Calculates events to display on calendar for officer (or team) on week selected
 				*/
-				/*events: function(start, end, callback) {
-					var fetchParams={
-						silent : true,
-						data   : {}
-					};
+				events: function(start, end, callback) {
 
-					var domain = [
-						{ 'field' : 'date_start', 'operator' : '>', 'value' : moment(start).format('YYYY-MM-DD HH:mm:ss') },
-						{ 'field' : 'date_end', 'operator' : '<', 'value' : moment(end).format('YYYY-MM-DD HH:mm:ss')  },
-					];
-
-					if(self.teamMode){
-						var users = app.current_user.getOfficerIdsByTeamId(self.model.id);
-						if( users.length > 0 ){
-							domain.push('|', { 'field' : 'team_id.id', 'operator' : '=', 'value' : self.model.id }, { 'field' : 'user_id.id', 'operator' : 'in', 'value' : users  } );
-						}
-						else{
-							domain.push({ 'field' : 'user_id.id', 'operator' : '=', 'value' : self.model.id });
-						}
-					}
-					else{
-						var teams = app.current_user.getTeamIdsByOfficerId(self.model.id);
-						if( teams.length>0 ){
-							domain.push('|', { 'field' : 'user_id.id', 'operator' : '=', 'value' : self.model.id }, { 'field' : 'team_id.id', 'operator' : 'in', 'value' : teams  });
-						}
-						else{
-							domain.push({ 'field' : 'user_id.id', 'operator' : '=', 'value' : self.model.id });
-						}
-					}
-
-					fetchParams.data.filters = app.objectifyFilters(domain);
-					self.collection = new TasksCollection();
-
-					//Get tasks for domain
-					self.collection.fetch(fetchParams).done(function(){
-						//Transforms tasks in events for fullcalendar
-						self.events = self.fetchEvents();
-						self.collection.off();
-						self.listenTo(self.collection, 'add', self.refreshEvents);
-						self.listenTo(self.collection, 'change', self.refreshEvents);
-						self.listenTo(self.collection, 'remove', self.refreshEvents);
-
-						self.initPrintView();
-						//Display events on calendar
-						callback(self.events);
+					self.fetchReservations(start, end).done(function(data) {
+						callback(self.jsonToEvents(data));
 					});
-				}*/
+				}
 
             });
+		};
+
+
+
+		/** Fetch the reservations
+		*/
+		this.fetchReservations = function(start, end) {
+
+			var startDate = moment.utc(moment(start)).format('YYYY-MM-DD HH:mm:ss');
+			var endDate = moment.utc(moment(end)).format('YYYY-MM-DD HH:mm:ss');
+
+			// Create Fetch params //
+			var params = {
+				fields : ['name', 'checkin', 'checkout', 'note', 'whole_day'],
+			};
+
+			var filters = [
+				'|',
+				'|',
+				'&',
+				{ 'field' : 'checkin', 'operator' : '>=', 'value' : startDate },
+				{ 'field' : 'checkin', 'operator' : '<=', 'value' : endDate },
+				'&',
+				{ 'field' : 'checkout', 'operator' : '>=', 'value' : startDate },
+				{ 'field' : 'checkout', 'operator' : '<=', 'value' : endDate },
+				'&',
+				{ 'field' : 'checkin', 'operator' : '<', 'value' : startDate },
+				{ 'field' : 'checkout','operator' : '>', 'value' : endDate },
+				{ 'field' : 'reservation_line.reserve_product.id', 'operator' : 'in', 'value' : [this.selectedResource]},
+				{ 'field' : 'state', 'operator' : 'in', 'value' : ['confirm', 'done']}
+			];
+
+			params.filters = Helper.objectifyFilters(filters);
+
+
+			return $.ajax({
+				url     : this.bookings_url,
+				method  : 'GET',
+				dataType: 'json',
+				data    : params
+			});
+
+		};
+
+
+
+		/** Refetch the events
+		*/
+		this.fetchEvents = function() {
+			if (this.selectedResource !== ''){
+				this.calendar.fullCalendar('refetchEvents');
+			}
+			else {
+				this.calendar.fullCalendar('removeEvents');
+			}
+
+		};
+
+
+
+		/** Set the selected ressouce to the fullcalendar
+		*/
+		this.setSelectedResource = function(res) {
+			this.selectedResource = res;
+		};
+
+
+
+		/** Convert a Array events for FullCalendar
+		*/
+		this.jsonToEvents = function(jsonEvents) {
+
+			var events = [];
+
+			_.each(jsonEvents, function(booking) {
+
+				var evt = {
+					id     : booking.id,
+					title  : '',
+					allDay : booking.whole_day,
+					start  : moment(booking.checkin).format('YYYY-MM-DD HH:mm'),
+					end    : moment(booking.checkout).format('YYYY-MM-DD HH:mm'),
+					color  : '#d9534f',
+				};
+
+				events.push(evt);
+			});
+
+			return events;
 		};
 
 
