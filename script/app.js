@@ -65,9 +65,6 @@ define('app', [
 			app.selectListClaimerAssociation.render();
 
 
-			app.fullCalendar = new FullCalendarView({ el: $('#calendar'), lang: app.lang });
-			app.fullCalendar.render();
-
 
 			// Filter on all the ASSO //
 			var selectListClaimerAssociationParams = { field: 'type_id.code', operator: 'ilike', value: 'ASSO' };
@@ -117,6 +114,22 @@ define('app', [
 			$('#bookingPlace').on('change', function() {
 				app.bookingLines.name = app.selectListBookingPlace.getSelectedText();
 				app.bookingLines.line_id = app.selectListBookingPlace.getSelectedItem();
+
+				var placeID = app.selectListBookingPlace.getSelectedItem();
+
+
+				// If fullCalendar view isn't define //
+				if (_.isUndefined(app.fullCalendar)){
+					app.fullCalendar = new FullCalendarView({ el: $('#calendar'), lang: app.lang, urlBookings: app.config.server_api_url + app.api_url_bookings });
+					app.fullCalendar.setSelectedResource(placeID);
+					app.fullCalendar.render();
+				}
+				else {
+					// Refetch the booking //
+					app.fullCalendar.setSelectedResource(placeID);
+					app.fullCalendar.fetchEvents();
+				}
+
 			});
 
 
