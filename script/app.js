@@ -96,8 +96,11 @@ define('app', [
 				var sDate = $('#bookingStartDate').datepicker('getDate');
 				$('#bookingEndDate').datepicker('setStartDate', sDate);
 				$('#bookingEndDate').datepicker('setDate', sDate);
-				app.fullCalendar.goTo(sDate);
-				self.selectPeriodCalendar();
+
+				if (!_.isUndefined(app.fullCalendar)){
+					app.fullCalendar.goTo(sDate);
+					self.selectPeriodCalendar();
+				}
 			});
 
 			// Start Hour change //
@@ -134,7 +137,7 @@ define('app', [
 
 				// If fullCalendar view isn't define //
 				if (_.isUndefined(app.fullCalendar)){
-					app.fullCalendar = new FullCalendarView({ el: $('#calendar'), lang: app.lang, urlBookings: app.config.server_api_url + app.api_url_bookings });
+					app.fullCalendar = new FullCalendarView({ el: $('#calendar'), date: moment($('#bookingStartDate').datepicker('getDate')), lang: app.lang, urlBookings: app.config.server_api_url + app.api_url_bookings });
 					app.fullCalendar.setSelectedResource(placeID);
 					app.fullCalendar.render();
 				}
@@ -550,7 +553,10 @@ define('app', [
 			var mStartDate = moment(sDat + ' ' + sHour, 'DD/MM/YYYY HH:mm').toDate();
 			var mEndDate   = moment(eDat + ' ' + eHour, 'DD/MM/YYYY HH:mm').toDate();
 
-			app.fullCalendar.select(mStartDate, mEndDate);
+			// Check if the calendar is instantiate //
+			if (!_.isUndefined(app.fullCalendar)){
+				app.fullCalendar.select(mStartDate, mEndDate);
+			}
 		}
 
 
