@@ -129,7 +129,7 @@ module.exports = function(grunt) {
 					{ src: 'i18n/**', dest: '<%= build_directory %>/'},
 					{ src: 'script/libs/require.2.1.11.min.js', dest: '<%= build_directory %>/script/require.js' },
 					{ src: 'fonts/**', dest: '<%= build_directory %>/' },
-					{ src: 'img/**', dest: '<%= build_directory %>/' }
+					{ src: 'medias/**', dest: '<%= build_directory %>/' }
 				]
 			}
 		},
