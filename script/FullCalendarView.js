@@ -27,6 +27,7 @@ define([
 		this.lang             = params.lang;
 		this.bookings_url     = params.urlBookings;
 		this.selectedResource = '';
+		this.date             = params.date;
 
 
 		/** View Render
@@ -38,6 +39,9 @@ define([
 			this.calendar.fullCalendar({
 
 				/** Full calendar attributes **/
+				year          : this.date.year(),
+				month         : this.date.month(),
+				date          : this.date.date(),
 				defaultView   : 'agendaWeek',
 				ignoreTimezone: false,
 				aspectRatio   : 2.1,
@@ -85,9 +89,11 @@ define([
 				*/
 				events: function(start, end, callback) {
 
-					self.fetchReservations(start, end).done(function(data) {
-						callback(self.jsonToEvents(data));
-					});
+					if (self.selectedResource !== ''){
+						self.fetchReservations(start, end).done(function(data) {
+							callback(self.jsonToEvents(data));
+						});
+					}
 				},
 
 
