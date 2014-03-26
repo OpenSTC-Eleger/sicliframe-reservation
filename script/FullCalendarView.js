@@ -44,7 +44,7 @@ define([
 				header: {
 					left  : 'title',
 					center: '',
-					right : 'agendaWeek,agendaDay today,prev,next'
+					right : ',agendaDay,agendaWeek,month today,prev,next'
 				},
 				// time formats
 				titleFormat: {
@@ -71,13 +71,14 @@ define([
 					week : self.lang.week,
 					day  : self.lang.day
 				},
-				allDaySlot     : false,
-				slotMinutes    : 30,
-				firstHour      : 9,
-				dragOpacity    : 0.5,
-				weekends       : true,
-				selectable     : true,
-				selectHelper   : true,
+				allDaySlot    : false,
+				slotMinutes   : 30,
+				firstHour     : 9,
+				dragOpacity   : 0.5,
+				weekends      : true,
+				selectable    : true,
+				selectHelper  : true,
+				unselectAuto  : false,
 
 
 				/** Calculates events to display on calendar for officer (or team) on week selected
@@ -87,9 +88,27 @@ define([
 					self.fetchReservations(start, end).done(function(data) {
 						callback(self.jsonToEvents(data));
 					});
+				},
+
+
+				/** When user select period of time in the calendar
+				*/
+				select: function(startDate, endDate, allDay, jsEvent) {
+
+					// Update the date //
+					if(!_.isUndefined(jsEvent)) {
+						$('#bookingStartDate').datepicker('setStartDate', startDate);
+						$('#bookingStartDate').datepicker('setDate', startDate);
+						$('#bookingStartHour').timepicker('setTime', moment(startDate).format('HH:mm'));
+
+						$('#bookingEndDate').datepicker('setStartDate', endDate);
+						$('#bookingEndDate').datepicker('setDate', endDate);
+						$('#bookingEndHour').timepicker('setTime', moment(endDate).format('HH:mm'));
+					}
+
 				}
 
-            });
+			});
 		};
 
 
@@ -154,6 +173,22 @@ define([
 		*/
 		this.setSelectedResource = function(res) {
 			this.selectedResource = res;
+		};
+
+
+
+		/** Go the the selected date
+		*/
+		this.goTo = function(sDat) {
+			this.calendar.fullCalendar('gotoDate', sDat);
+		};
+
+
+
+		/** Select a period of time
+		*/
+		this.select = function(sDat, eDat) {
+			this.calendar.fullCalendar('select', sDat, eDat, false);
 		};
 
 
