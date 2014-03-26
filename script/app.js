@@ -93,13 +93,27 @@ define('app', [
 
 			// Start date change //
 			$('#bookingStartDate').datepicker().on('changeDate', function() {
-				$('#bookingEndDate').datepicker('setStartDate', $('#bookingStartDate').datepicker('getDate'));
-				$('#bookingEndDate').datepicker('setDate', $('#bookingStartDate').datepicker('getDate'));
+				var sDate = $('#bookingStartDate').datepicker('getDate');
+				$('#bookingEndDate').datepicker('setStartDate', sDate);
+				$('#bookingEndDate').datepicker('setDate', sDate);
+				app.fullCalendar.goTo(sDate);
+				self.selectPeriodCalendar();
 			});
 
 			// Start Hour change //
 			$('#bookingStartHour').timepicker().on('changeTime.timepicker', function() {
 				$('#bookingEndHour').timepicker('setTime', moment($('#bookingStartHour').val(), 'HH:mm').add('hours', 3).format('HH:00'));
+				self.selectPeriodCalendar();
+			});
+
+			// End date change //
+			$('#bookingEndDate').datepicker().on('changeDate', function() {
+				self.selectPeriodCalendar();
+			});
+
+			// Start Hour change //
+			$('#bookingEndHour').timepicker().on('changeTime.timepicker', function() {
+				self.selectPeriodCalendar();
 			});
 
 
@@ -521,6 +535,22 @@ define('app', [
 				}
 			});
 
+		},
+
+
+
+		/** Select period of time in the calendar
+		*/
+		selectPeriodCalendar: function() {
+			var sDat  = $('#bookingStartDate').val();
+			var eDat  = $('#bookingEndDate').val();
+			var sHour = $('#bookingStartHour').val();
+			var eHour = $('#bookingEndHour').val();
+
+			var mStartDate = moment(sDat + ' ' + sHour, 'DD/MM/YYYY HH:mm').toDate();
+			var mEndDate   = moment(eDat + ' ' + eHour, 'DD/MM/YYYY HH:mm').toDate();
+
+			app.fullCalendar.select(mStartDate, mEndDate);
 		}
 
 
