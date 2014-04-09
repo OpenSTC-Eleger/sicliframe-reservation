@@ -48,7 +48,7 @@
 		"fillCity"             : "Renseigner votre ville",
 		"fillBookingName"      : "Renseigner le nom de l'événement",
 		"fillBookingPlace"     : "Merci sélectionner votre salle",
-		"fillBookingDate"      : "La date n'est pas correct",
+		"fillBookingDate"      : "La date n'est pas correct ou cette plage horaire est déjà réservée",
 		"errorSendBooking"     : "Une erreur est survenue lors de l'enregistrement de votre demande"
 	},
 

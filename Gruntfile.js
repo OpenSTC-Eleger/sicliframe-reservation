@@ -61,7 +61,14 @@ module.exports = function(grunt) {
 				freeze       : true,
 				curly        : true,
 				latedef      : true,
-				maxcomplexity: 15
+				maxcomplexity: 15,
+				undef        : true,
+				noempty      : true,
+				trailing     : true,
+				browser      : true,
+				jquery       : true,
+				devel        : true,
+				globals      : { 'requirejs': true, 'require': true, 'module': true, 'define': true, '_': true }
 			},
 			gruntfile: {
 				src: ['Gruntfile.js']

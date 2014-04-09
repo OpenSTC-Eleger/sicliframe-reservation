@@ -140,6 +140,7 @@ define('app', [
 					app.fullCalendar = new FullCalendarView({ el: $('#calendar'), date: moment($('#bookingStartDate').datepicker('getDate')), lang: app.lang, urlBookings: app.config.server_api_url + app.api_url_bookings });
 					app.fullCalendar.setSelectedResource(placeID);
 					app.fullCalendar.render();
+					self.selectPeriodCalendar();
 				}
 				else {
 					// Refetch the booking //
@@ -454,6 +455,15 @@ define('app', [
 			if (mStartDate > mEndDate){
 				$('#form-bookingEndDate').addClass('has-error');
 				returnStatement = false;
+			}
+
+
+			if (app.fullCalendar.checkOverlapEvent(mStartDate, mEndDate)){
+				$('#form-bookingStartDate').addClass('has-error');
+				returnStatement = false;
+			}
+			else {
+				$('#form-bookingStartDate').removeClass('has-error');
 			}
 
 			return returnStatement;

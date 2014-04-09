@@ -134,6 +134,6 @@ dl.lead dd{
 .form-group span.help-block{
 	display: none;
 }
-.form-group.has-error span.help-block{
+.form-group.has-error span.errorMessage{
 	display: block;
 }

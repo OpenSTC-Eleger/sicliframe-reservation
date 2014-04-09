@@ -223,6 +223,34 @@ define([
 		};
 
 
+
+		/** Check if the selected date isn't over an confirm/done event
+		*/
+		this.checkOverlapEvent = function(start, end) {
+
+			// Retrieve the selected date (start & end) into timestamp //
+			var startTimestamp = start.format('X');
+			var endTimestamp = end.format('X');
+
+
+			var isOverlap = false;
+			// Retrieve all events that FullCalendar has in memory //
+			this.calendar.fullCalendar('clientEvents', function(ev) {
+
+				var eStart = moment(ev.start).format('X');
+				var eEnd = moment(ev.end).format('X');
+
+				if ((eStart < endTimestamp) && (eEnd > startTimestamp)){
+					isOverlap = true;
+				}
+
+			});
+
+			return isOverlap;
+
+		};
+
+
 	};
 
 	return FullCalendarView;
