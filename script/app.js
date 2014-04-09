@@ -505,19 +505,30 @@ define('app', [
 			}
 
 			$('button[type="submit"]').button('loading');
+
+			// Request to save the reservation //
 			var rest = $.ajax({
-				url   : app.config.server_api_url + app.api_url_bookings,
-				method: 'POST',
+				url     : app.config.server_api_url + app.api_url_bookings,
+				method  : 'POST',
 				dataType: 'json',
-				data  : JSON.stringify(obj)
+				data    : JSON.stringify(obj)
 			});
 
-			rest.done(function() {
+			rest.done(function(resaId) {
 				var message = '<strong><i class="fa fa-check fa-lg fa-2x"></i></strong> ' + app.lang.infoMessage.validSendBooking;
 				$('#submitMessage').html(message).addClass('alert-success').slideDown('slow');
 
 				$('li[data-step="2"]').addClass('success');
 				$('ul.pager').addClass('invisible');
+
+
+				$.ajax({
+					url     : app.config.server_api_url + app.api_url_bookings + '/' + resaId,
+					method  : 'PATCH',
+					dataType: 'json',
+					data    : JSON.stringify({state_event: 'save'})
+				});
+
 			})
 			.fail(function() {
 				var message = '<strong><i class="fa fa-warning fa-lg fa-2x"></i></strong> ' + app.lang.errorMessage.errorSendBooking;
@@ -540,9 +551,9 @@ define('app', [
 			var params = [{ field : 'type_id.code', operator : 'ilike', value : 'PART'}];
 
 			return $.ajax({
-				url: app.config.server_api_url + app.api_url_partner,
+				url   : app.config.server_api_url + app.api_url_partner,
 				method: 'GET',
-				data: {
+				data  : {
 					fields  : ['id'],
 					filters : Helper.objectifyFilters(params)
 				}
