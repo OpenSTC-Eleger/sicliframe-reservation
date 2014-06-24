@@ -1,6 +1,6 @@
 {
 	"name": "SicliFrame Resa",
-	"version": "1.0.2",
+	"version": "1.1.0",
 	"description": "Formulaire de réservation de salles",
 	"dependencies": {
 		"jQuery"               : "2.1.0",
